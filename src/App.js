@@ -1,8 +1,12 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+import Button from '@material-ui/core/Button';
 
 function App() {
   return (
-    <h1>Hello world!</h1>
+    <Button variant="contained" color="primary">
+      Hello World
+    </Button>
   );
 }
 
