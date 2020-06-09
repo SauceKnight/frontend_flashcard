@@ -15,6 +15,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import AddIcon from "@material-ui/icons/Add";
+import { useSelector, useDispatch } from 'react-redux'
 
 
 
@@ -47,13 +48,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function PermanentDrawerLeft({ favoritesData, fetchFavoriteUserDecks }) {
+    const userid = useSelector(state => state.User.id)
+    const username = useSelector(state => state.User.username)
+
     useEffect(() => {
         // fetchDecks(1),
-        fetchFavoriteUserDecks(1)
+        fetchFavoriteUserDecks(userid)
     }, [])
     const classes = useStyles();
     // TODO: get these values from the database :)
-    const username = "Break Bot";
+    const displayName = username;
     const user_deck_count = 0;
     const user_deck_count_display = "Your decks: " + favoritesData.length;
     const user_initials = username.split(/\s/).reduce((response, word) => response += word.slice(0, 1), '').slice(0, 2);
@@ -74,7 +78,7 @@ function PermanentDrawerLeft({ favoritesData, fetchFavoriteUserDecks }) {
                     {/* <Avatar alt="BreakBot" src="https://i.imgur.com/byozd3F.png" /> */}
                     <Avatar className={classes.purple}>{user_initials}</Avatar>
                     <Typography variant="h5" noWrap> {/* Username goes here */}
-                        {username}
+                        {displayName}
                     </Typography>
                     <Typography variant="h6" noWrap> {/* deck count goes here */}
                         {user_deck_count_display}

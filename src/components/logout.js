@@ -5,8 +5,8 @@ import { logout } from "../reducers/authentication"
 
 const LogoutButton = (props) => {
     const dispatch = useDispatch()
-    const token = useSelector(state => state.authentication.token)
-    if (!token) {
+    const id = useSelector(state => state.User.id)
+    if (!id) {
         return null;
     }
 

@@ -5,18 +5,18 @@ import ListofDecks from "./components/ListofDecks";
 import LoginPanel from "./components/login";
 import SignupPanel from "./components/signupPanel";
 import PermanentLeftDrawer from './components/sidebar'
+import { Route, Switch } from 'react-router-dom'
 
 function App() {
   return (
     // TODO: render sidebar here from components/sidebar (?)
     <div>
-      <Button variant="contained" color="primary">
-        Hello World
-			</Button>
-      {/* <LoginPanel /> */}
-      {/* <ListofDecks /> */}
-      {/* <SignupPanel /> */}
-      <PermanentLeftDrawer />
+      <Switch>
+        <Route exact path='/login' component={LoginPanel} />
+        {/* <ListofDecks /> */}
+        <Route exact path='/signup' component={SignupPanel} />
+        <PermanentLeftDrawer />
+      </Switch>
     </div>
   );
 }
