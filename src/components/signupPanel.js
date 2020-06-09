@@ -9,7 +9,7 @@ const SignupPanel = (props) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    const token = useSelector((state) => state.authentication.token);
+    const id = useSelector((state) => state.User.id);
     const dispatch = useDispatch();
 
     const handleSignup = async (e) => {
@@ -30,7 +30,7 @@ const SignupPanel = (props) => {
         setConfirmPassword(e.target.value);
     };
 
-    if (token) {
+    if (id) {
         return <Redirect to="/" />;
     }
     return (

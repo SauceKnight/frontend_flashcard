@@ -4,11 +4,10 @@ import { login } from "../reducers/authentication"
 import { useSelector, useDispatch } from 'react-redux'
 
 function LoginPanel(props) {
-    const [email, setEmail] = useState("test3@gmail.com")
+    const [email, setEmail] = useState("test5@gmail.com")
     const [password, setPassword] = useState("password")
-    const [username, setUsername] = useState('test2')
-    const token = useSelector(state => state.authentication.token)
-    const id = useSelector(state => state.authentication.id)
+    const [username, setUsername] = useState('test5')
+    const id = useSelector(state => state.User.id)
     const dispatch = useDispatch()
 
     const handleSubmit = async (e) => {
@@ -30,7 +29,7 @@ function LoginPanel(props) {
     }
 
 
-    if (token) {
+    if (id) {
         return <Redirect to="/" />
     }
     return (
