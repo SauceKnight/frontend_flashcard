@@ -7,8 +7,12 @@ export const TOKEN_KEY = "flashnerd/authentication/TOKEN";
 const SET_USER = "flashnerd/authentication/SET_USER";
 
 
-export const setToken = (token) => ({ type: SET_TOKEN, token });
-export const removeToken = (token) => ({ type: REMOVE_TOKEN });
+export const setToken = (token, id, username) => ({
+    type: SET_TOKEN,
+    token,
+    id,
+    username,
+}); export const removeToken = (token) => ({ type: REMOVE_TOKEN });
 export const setUser = (user) => ({ type: SET_USER, user });
 
 export const loadToken = () => async (dispatch) => {
@@ -48,12 +52,9 @@ export const login = (email, username, password) => async (dispatch) => {
         body: JSON.stringify({ email, username, password }),
     });
     if (response.ok) {
-        const {
-            token,
-            id,
-        } = await response.json();
-        window.localStorage.setItem(TOKEN_KEY, token);
-        dispatch(setToken(token));
+        const res = await response.json();
+        window.localStorage.setItem(TOKEN_KEY, res.token);
+        dispatch(setToken(res));
     }
 };
 

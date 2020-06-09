@@ -1,10 +1,9 @@
-
 import { createStore, applyMiddleware, combineReducers, compose } from "redux";
 import thunk from "redux-thunk";
-import authentication from "../reducers/authentication"
-import deckManagement from "../reducers/deckManagement"
-import cardManagement from "../reducers/cardManagement"
-import deckReducer from "../deck/deckReducer"
+import authentication from "../reducers/authentication";
+import deckManagement from "../reducers/deckManagement";
+import cardManagement from "../reducers/cardManagement";
+import deckReducer from "../deck/deckReducer";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

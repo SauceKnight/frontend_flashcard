@@ -1,42 +1,34 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { signup } from "./store/authentication";
+import { signup } from "../reducers/authentication";
 import { Link } from "react-router-dom";
 
 const SignupPanel = (props) => {
-
-    const [email, setEmail] = useState("")
-    const [username, setUsername] = useState("")
-    const [password, setPassword] = useState("")
-    const [confirmPassword, setConfirmPassword] = useState("")
-    const token = useSelector(state => state.authentication.token)
-    const id = useSelector(state => state.authentication.id)
-    const dispatch = useDispatch()
+    const [email, setEmail] = useState("");
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const token = useSelector((state) => state.authentication.token);
+    const dispatch = useDispatch();
 
     const handleSignup = async (e) => {
         e.preventDefault();
-        dispatch(signup(email, username, password, confirmPassword
-        ));
-    }
+        dispatch(signup(email, username, password, confirmPassword));
+    };
 
     const updateEmail = (e) => {
         setEmail(e.target.value);
-
-    }
+    };
     const updateUsername = (e) => {
         setUsername(e.target.value);
-
-    }
+    };
     const updatePassword = (e) => {
         setPassword(e.target.value);
-
-    }
+    };
     const updateConfirmPassword = (e) => {
         setConfirmPassword(e.target.value);
-
-    }
-
+    };
 
     if (token) {
         return <Redirect to="/" />;
@@ -46,14 +38,14 @@ const SignupPanel = (props) => {
             <form className="" onSubmit={handleSignup}>
                 <p>
                     Please fill in all the required
-						<br></br>
-						fields to create a new user account.
-					</p>
+					<br></br>
+					fields to create a new user account.
+				</p>
                 <input
                     className=""
                     type="text"
                     placeholder="Email"
-                    value={temail}
+                    value={email}
                     onChange={updateEmail}
                     name="email"
                     id="email"
@@ -63,7 +55,7 @@ const SignupPanel = (props) => {
                     className=""
                     type="text"
                     placeholder="User Name"
-                    value={userame}
+                    value={username}
                     onChange={updateUsername}
                     name="username"
                     id="userame"
@@ -83,7 +75,7 @@ const SignupPanel = (props) => {
                     className=""
                     type="password"
                     placeholder="Confirm Password"
-                    value={comfirmPassword}
+                    value={confirmPassword}
                     onChange={updateConfirmPassword}
                     name="confirmPassword"
                     id="confirmPassword"
@@ -92,20 +84,19 @@ const SignupPanel = (props) => {
                 />
                 <button className="" type="submit">
                     SIGNUP
-					</button>
+				</button>
                 <h3>
                     Already have an account?{" "}
                     <span>
                         <Link className="sign-up" to="/login">
                             {" "}
-								LOGIN
-							</Link>
+							LOGIN
+						</Link>
                     </span>
                 </h3>
             </form>
         </main>
     );
-
-}
+};
 
 export default SignupPanel;
