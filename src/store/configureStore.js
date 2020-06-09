@@ -9,9 +9,8 @@ import deckReducer from "../deck/deckReducer"
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const reducer = combineReducers({
-    authentication,
-    deckManagement,
-    cardManagement,
+    User: authentication,
+    Cards: cardManagement,
     Deck: deckReducer
 
 });

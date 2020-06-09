@@ -9,10 +9,10 @@ export const fetchSearchDecks = decks => {
     }
 }
 
-export const fetchFavoriteDecks = favorites => {
+export const fetchFavoriteDecks = favoritedecks => {
     return {
         type: FAVORITE_DECKS,
-        payload: favorites
+        payload: favoritedecks
     }
 }
 
@@ -22,5 +22,13 @@ export const fetchDecks = (userid) => async (dispatch) => {
     if (response.ok) {
         const res = await response.json();
         dispatch(fetchSearchDecks(res));
+    }
+};
+
+export const fetchFavoriteUserDecks = (userid) => async (dispatch) => {
+    const response = await fetch(`http://localhost:5000/${userid}/decks/favorites`);
+    if (response.ok) {
+        const res = await response.json();
+        dispatch(fetchFavoriteDecks(res));
     }
 };

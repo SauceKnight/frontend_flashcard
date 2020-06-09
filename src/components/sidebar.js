@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react'
+import { fetchDecks, fetchFavoriteUserDecks } from '../deck/deckActions';
+import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,6 +15,8 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import AddIcon from "@material-ui/icons/Add";
+
+
 
 
 const drawerWidth = 240;
@@ -42,12 +46,16 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function PermanentDrawerLeft() {
+function PermanentDrawerLeft({ favoritesData, fetchFavoriteUserDecks }) {
+    useEffect(() => {
+        // fetchDecks(1),
+        fetchFavoriteUserDecks(1)
+    }, [])
     const classes = useStyles();
     // TODO: get these values from the database :)
     const username = "Break Bot";
     const user_deck_count = 0;
-    const user_deck_count_display = "Your decks: " + String(user_deck_count);
+    const user_deck_count_display = "Your decks: " + favoritesData.length;
     const user_initials = username.split(/\s/).reduce((response, word) => response += word.slice(0, 1), '').slice(0, 2);
 
     return (
@@ -88,6 +96,15 @@ export default function PermanentDrawerLeft() {
                             </ListItemIcon>
                             <ListItemText primary={text} />
                         </ListItem>
+
+                    ))}
+                    {favoritesData.map(deck => (<ListItem button key={deck.id} onClick={() => {
+                        alert("✔️ This works on every component!");
+                    }}>
+                        <ListItemIcon>
+                        </ListItemIcon>
+                        <ListItemText primary={deck.title} />
+                    </ListItem>
                     ))}
                 </List>
                 <Divider />
@@ -95,4 +112,20 @@ export default function PermanentDrawerLeft() {
         </div>
     );
 }
+
+const mapStateToProps = state => {
+    return {
+        deckData: state.Deck.decks,
+        favoritesData: state.Deck.favoritedecks
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        // fetchDecks: (userid) => dispatch(fetchDecks(userid)),
+        fetchFavoriteUserDecks: (userid) => dispatch(fetchFavoriteUserDecks(userid))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PermanentDrawerLeft)
 

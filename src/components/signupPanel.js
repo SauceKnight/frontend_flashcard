@@ -11,6 +11,7 @@ const SignupPanel = (props) => {
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
     const token = useSelector(state => state.authentication.token)
+    const id = useSelector(state => state.authentication.id)
     const dispatch = useDispatch()
 
     const handleSignup = async (e) => {
