@@ -4,10 +4,12 @@ import { baseUrl } from "../config"
 const SET_TOKEN = "flashnerd/authentication/SET_TOKEN";
 const REMOVE_TOKEN = "flashnerd/authentication/REMOVE_TOKEN";
 export const TOKEN_KEY = "flashnerd/authentication/TOKEN";
+const SET_USER = "flashnerd/authentication/SET_USER";
 
 
 export const setToken = (token) => ({ type: SET_TOKEN, token });
 export const removeToken = (token) => ({ type: REMOVE_TOKEN });
+export const setUser = (user) => ({ type: SET_USER, user });
 
 export const loadToken = () => async (dispatch) => {
     const token = window.localStorage.getItem(TOKEN_KEY);
@@ -24,7 +26,7 @@ export const profileShowUp = (id) => async (dispatch) => {
             headers: {
                 "Content-Type": "application/json",
                 Accept: "application/json",
-                Authorization: `${token}`,
+                "x-access-token": `${token}`,
             },
         });
 
@@ -39,16 +41,16 @@ export const profileShowUp = (id) => async (dispatch) => {
     }
 };
 
-export const login = (email, password, username) => async (dispatch) => {
-    const response = await fetch(`${baseUrl}/login`, {
+export const login = (email, username, password) => async (dispatch) => {
+    const response = await fetch(`http://localhost:5000/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password, username }),
+        body: JSON.stringify({ email, username, password }),
     });
     if (response.ok) {
         const {
             token,
-            user: { id },
+            id,
         } = await response.json();
         window.localStorage.setItem(TOKEN_KEY, token);
         dispatch(setToken(token));
@@ -58,6 +60,27 @@ export const login = (email, password, username) => async (dispatch) => {
 export const logout = () => async (dispatch, getState) => {
     window.localStorage.removeItem(TOKEN_KEY);
     dispatch(removeToken());
+};
+
+export const signup = (
+    email,
+    username,
+    password,
+) => async (dispatch) => {
+    const response = await fetch(`${baseUrl}/signup`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            email,
+            username,
+            password,
+        }),
+    });
+    if (response.ok) {
+        const { token } = await response.json();
+        window.localStorage.setItem(TOKEN_KEY, token);
+        dispatch(setToken(token));
+    }
 };
 
 
@@ -75,6 +98,12 @@ export default function reducer(state = {}, action) {
             console.log(newState);
             delete newState.token;
             return newState;
+        }
+        case SET_USER: {
+            return {
+                ...state,
+                user: action.user,
+            };
         }
         default:
             return state;
