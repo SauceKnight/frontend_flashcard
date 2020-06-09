@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { fetchDecks, fetchFavoriteUserDecks } from '../deck/deckActions';
+import { fetchFavoriteUserDecks } from '../reducers/authentication';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -50,16 +50,22 @@ const useStyles = makeStyles((theme) => ({
 function PermanentDrawerLeft({ favoritesData, fetchFavoriteUserDecks }) {
     const userid = useSelector(state => state.User.id)
     const username = useSelector(state => state.User.username)
+    const favoriteDecks = useSelector(state => state.User.favoritedecks)
+    const decks = useSelector(state => state.Deck.decks)
+    let user_deck_count_display;
 
-    useEffect(() => {
-        // fetchDecks(1),
-        fetchFavoriteUserDecks(userid)
-    }, [])
+    // useEffect(() => {
+    //     // fetchDecks(1),
+    //     fetchFavoriteUserDecks(userid)
+    // }, [])
     const classes = useStyles();
     // TODO: get these values from the database :)
     const displayName = username;
     const user_deck_count = 0;
-    const user_deck_count_display = "Your decks: " + favoritesData.length;
+    console.log(favoriteDecks)
+    if (favoriteDecks) {
+        user_deck_count_display = "Your decks: " + favoriteDecks.length;
+    }
     const user_initials = username.split(/\s/).reduce((response, word) => response += word.slice(0, 1), '').slice(0, 2);
 
     return (
@@ -102,7 +108,7 @@ function PermanentDrawerLeft({ favoritesData, fetchFavoriteUserDecks }) {
                         </ListItem>
 
                     ))}
-                    {favoritesData.map(deck => (<ListItem button key={deck.id} onClick={() => {
+                    {Object.values(decks).map(deck => (<ListItem button key={deck.id} onClick={() => {
                         alert("✔️ This works on every component!");
                     }}>
                         <ListItemIcon>
@@ -120,7 +126,7 @@ function PermanentDrawerLeft({ favoritesData, fetchFavoriteUserDecks }) {
 const mapStateToProps = state => {
     return {
         deckData: state.Deck.decks,
-        favoritesData: state.Deck.favoritedecks
+        favoritesData: state.User.favoritedecks
     }
 }
 
