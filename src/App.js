@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 
 function App() {
   return (
+    // TODO: render sidebar here from components/sidebar (?)
     <Button variant="contained" color="primary">
       Hello World
     </Button>
