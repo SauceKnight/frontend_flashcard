@@ -18,7 +18,7 @@ const reducer = (state = initialState, action) => {
         case FAVORITE_DECKS:
             return {
                 ...state,
-                favoritedecks: action.payload,
+                favoritedecks: action.payload.data,
             }
         default: return state
     }
