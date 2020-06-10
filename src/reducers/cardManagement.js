@@ -17,7 +17,6 @@ export const fetchCurrentCard = (currentCard) => ({
 //FETCH ALL CARDS
 export const getAllCards = (id) => async (dispatch) => {
 	const response = await fetch(`http://localhost:5000/cards/${id}`);
-	debugger;
 	if (response.ok) {
 		const res = await response.json();
 		console.log("TEST FOR RES", res.data);
@@ -31,20 +30,18 @@ export const getOneCard = (deckId, cardId) => async (dispatch) => {
 	);
 	if (response.ok) {
 		const res = await response.json();
-		debugger;
 		dispatch(fetchCurrentCard(res.data));
 	}
 };
 
 const initialState = {
-	cards: [],
+
 };
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case FETCH_ALL_CARDS:
 			return {
-				...state,
-				cards: action.cards,
+				...action.cards,
 			};
 		case FETCH_CURRENT_CARD:
 			return {
