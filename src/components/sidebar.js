@@ -16,6 +16,8 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import AddIcon from "@material-ui/icons/Add";
 import { useSelector, useDispatch } from 'react-redux'
+import { Redirect } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 
 
@@ -51,7 +53,7 @@ function PermanentDrawerLeft({ favoritesData, fetchFavoriteUserDecks }) {
     const userid = useSelector(state => state.User.id)
     const username = useSelector(state => state.User.username)
     const favoriteDecks = useSelector(state => state.User.favoritedecks)
-    const decks = useSelector(state => state.Deck.decks)
+    const decks = useSelector(state => state.Deck)
     let user_deck_count_display;
 
     // useEffect(() => {
@@ -108,13 +110,12 @@ function PermanentDrawerLeft({ favoritesData, fetchFavoriteUserDecks }) {
                         </ListItem>
 
                     ))}
-                    {Object.values(decks).map(deck => (<ListItem button key={deck.id} onClick={() => {
-                        alert("✔️ This works on every component!");
-                    }}>
+                    {Object.values(decks).map(deck => (<Link to={`/cards/${deck.id}`}><ListItem button key={deck.id}>
                         <ListItemIcon>
                         </ListItemIcon>
                         <ListItemText primary={deck.title} />
                     </ListItem>
+                    </Link>
                     ))}
                 </List>
                 <Divider />
