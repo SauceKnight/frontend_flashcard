@@ -8,18 +8,17 @@ import deckReducer from "../deck/deckReducer";
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const reducer = combineReducers({
-    User: authentication,
-    Cards: cardManagement,
-    Deck: deckReducer
-
+	User: authentication,
+	Cards: cardManagement,
+	Deck: deckReducer,
 });
 
 const configureStore = (initialState) => {
-    return createStore(
-        reducer,
-        initialState,
-        composeEnhancers(applyMiddleware(thunk))
-    );
+	return createStore(
+		reducer,
+		initialState,
+		composeEnhancers(applyMiddleware(thunk))
+	);
 };
 
 export default configureStore;

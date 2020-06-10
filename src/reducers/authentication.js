@@ -98,7 +98,6 @@ export default function reducer(state = {}, action) {
 			return newState;
 
 		case SET_USER:
-			console.log("ACtion.user", action.user);
 			return {
 				...state,
 				user: action.user,
