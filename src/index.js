@@ -12,7 +12,7 @@ let store;
 
 if (localStorage["flashnerd/authentication/TOKEN"]) {
   const decodedUser = jwt_decode(localStorage["flashnerd/authentication/TOKEN"])
-  const preState = { User: decodedUser }
+  const preState = { User: decodedUser, Deck: decodedUser.decks }
   console.log(decodedUser)
   store = configureStore(preState)
 }

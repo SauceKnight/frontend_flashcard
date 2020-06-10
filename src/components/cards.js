@@ -6,7 +6,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import "../index.css";
-
 const useStyles = makeStyles((theme) => ({
 	root: {
 		flexGrow: 1,
@@ -15,18 +14,17 @@ const useStyles = makeStyles((theme) => ({
 		padding: theme.spacing(1),
 		textAlign: "center",
 		color: theme.palette.text.secondary,
-		alignSelf: "center",
 	},
 }));
 
 export default function ShowCards(props) {
 	const classes = useStyles();
-	const cards = useSelector((state) => state.Cards.cards);
+	const cards = useSelector((state) => state.Cards);
 	const { id } = props.match.params;
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(getAllCards(id));
-	}, []);
+	}, [id]);
 
 	if (!cards) {
 		return null;
@@ -35,16 +33,17 @@ export default function ShowCards(props) {
 	function FormRow() {
 		return (
 			<React.Fragment>
-				<Grid item xs={6}>
-					{cards.map((card) => (
-						<Paper className={classes.paper}>{card.question}</Paper>
-					))}
-				</Grid>
-				<Grid item xs={6}>
-					{cards.map((card) => (
-						<Paper className={classes.paper}>{card.answer}</Paper>
-					))}
-				</Grid>
+				{Object.values(cards).map((card) => (
+					<>
+						<Grid item xs={6}>
+							<Paper className={classes.paper}>{card.question}</Paper>
+						</Grid>
+
+						<Grid item xs={6}>
+							<Paper className={classes.paper}>{card.answer}</Paper>
+						</Grid>
+					</>
+				))}
 			</React.Fragment>
 		);
 	}

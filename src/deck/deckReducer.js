@@ -1,11 +1,10 @@
 import {
     FETCH_SEARCH_DECKS,
-    FAVORITE_DECKS
 } from './deckActions'
 
+import { SET_TOKEN } from '../reducers/authentication'
+
 const initialState = {
-    decks: [],
-    favoritedecks: []
 }
 
 const reducer = (state = initialState, action) => {
@@ -13,13 +12,14 @@ const reducer = (state = initialState, action) => {
         case FETCH_SEARCH_DECKS:
             return {
                 ...state,
-                decks: action.payload.data,
+                ...action.payload.data,
             }
-        case FAVORITE_DECKS:
+        case SET_TOKEN:
             return {
                 ...state,
-                favoritedecks: action.payload.data,
+                ...action.payload.decks,
             }
+
         default: return state
     }
 }
