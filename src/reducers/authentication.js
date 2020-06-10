@@ -1,15 +1,16 @@
 import { baseUrl } from "../config";
+import jwt_decode from "jwt-decode";
 
-const SET_TOKEN = "flashnerd/authentication/SET_TOKEN";
+export const SET_TOKEN = "flashnerd/authentication/SET_TOKEN";
 const REMOVE_TOKEN = "flashnerd/authentication/REMOVE_TOKEN";
 export const TOKEN_KEY = "flashnerd/authentication/TOKEN";
 const SET_USER = "flashnerd/authentication/SET_USER";
+export const ID_KEY = "flasknerd/authentication/ID_KEY";
+export const FAVORITE_DECKS = "FAVORITE_DECKS"
 
-export const setToken = (token, id, username) => ({
+export const setToken = (payload) => ({
 	type: SET_TOKEN,
-	token,
-	id,
-	username,
+	payload,
 });
 export const removeToken = (token) => ({ type: REMOVE_TOKEN });
 export const setUser = (user) => ({ type: SET_USER, user });
@@ -22,22 +23,21 @@ export const loadToken = () => async (dispatch) => {
 };
 export const profileShowUp = (id) => async (dispatch) => {
 	const token = window.localStorage.getItem(TOKEN_KEY);
-
 	if (token) {
-		const response = await fetch(`${baseUrl}/users/${id}`, {
+		const response = await fetch(`http://localhost:5000/users/${id}`, {
 			method: "GET",
 			headers: {
 				"Content-Type": "application/json",
-				Accept: "application/json",
 				"x-access-token": `${token}`,
 			},
 		});
 
 		if (response.ok) {
-			const { user } = await response.json();
+			const res = await response.json();
+			console.log("Ressss", res);
 
-			window.localStorage.setItem(TOKEN_KEY, token);
-			dispatch(setUser(user));
+			window.localStorage.setItem(TOKEN_KEY, res.token);
+			dispatch(setUser(res.data));
 		}
 	} else {
 		console.log("Failed");
@@ -53,8 +53,26 @@ export const login = (email, username, password) => async (dispatch) => {
 	if (response.ok) {
 		const res = await response.json();
 		window.localStorage.setItem(TOKEN_KEY, res.token);
-		dispatch(setToken(res));
+		window.localStorage.setItem(ID_KEY, res.id);
+
+		const decodedUser = jwt_decode(res.token);
+		dispatch(setToken(decodedUser));
 	}
+};
+
+export const fetchFavoriteDecks = favoritedecks => {
+    return {
+        type: FAVORITE_DECKS,
+        payload: favoritedecks
+    }
+}
+
+export const fetchFavoriteUserDecks = (userid) => async (dispatch) => {
+    const response = await fetch(`http://localhost:5000/${userid}/decks/favorites`);
+    if (response.ok) {
+        const res = await response.json();
+        dispatch(fetchFavoriteDecks(res));
+    }
 };
 
 export const logout = () => async (dispatch, getState) => {
@@ -62,9 +80,7 @@ export const logout = () => async (dispatch, getState) => {
 	dispatch(removeToken());
 };
 
-export const signup = (email, username, password, confirmPassword) => async (
-	dispatch
-) => {
+export const signup = (email, username, password) => async (dispatch) => {
 	const response = await fetch(`http://localhost:5000/signup`, {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
@@ -72,40 +88,71 @@ export const signup = (email, username, password, confirmPassword) => async (
 			email,
 			username,
 			password,
-			confirmPassword,
 		}),
 	});
 	if (response.ok) {
-		const { token } = await response.json();
-		window.localStorage.setItem(TOKEN_KEY, token);
-		dispatch(setToken(token));
+		const res = await response.json();
+		window.localStorage.setItem(TOKEN_KEY, res.token);
+		const decodedUser = jwt_decode(res.token);
+		dispatch(setToken(decodedUser));
 	}
 };
 
 export default function reducer(state = {}, action) {
+<<<<<<< HEAD
+    switch (action.type) {
+        case SET_TOKEN:
+            debugger
+            return {
+                ...state,
+                id: action.payload.id,
+                username: action.payload.username,
+                favoritedecks: action.payload.favoritedecks
+            };
+
+        case REMOVE_TOKEN:
+            const newState = { ...state };
+            console.log(newState);
+            delete newState.token;
+            return newState;
+
+        case SET_USER:
+            return {
+                ...state,
+                user: action.user,
+            };
+        case FAVORITE_DECKS:
+            return {
+                ...state,
+                favoritedecks: action.payload.data,
+            }
+
+        default:
+            return state;
+    }
+=======
 	switch (action.type) {
-		case SET_TOKEN: {
+		case SET_TOKEN:
 			return {
 				...state,
-				token: action.token,
-				id: action.id,
-				username: action.username,
+				id: action.payload.id,
+				username: action.payload.username,
 			};
-		}
 
-		case REMOVE_TOKEN: {
+		case REMOVE_TOKEN:
 			const newState = { ...state };
 			console.log(newState);
 			delete newState.token;
 			return newState;
-		}
-		case SET_USER: {
+
+		case SET_USER:
 			return {
 				...state,
 				user: action.user,
 			};
-		}
+
 		default:
 			return state;
 	}
+>>>>>>> 7e2d7e7f9374d21c51d6d2a795321222db8a4b2c
 }

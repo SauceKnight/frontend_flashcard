@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react'
+import { fetchFavoriteUserDecks } from '../reducers/authentication';
+import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,6 +15,9 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import AddIcon from "@material-ui/icons/Add";
+import { useSelector, useDispatch } from 'react-redux'
+
+
 
 
 const drawerWidth = 240;
@@ -42,12 +47,25 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function PermanentDrawerLeft() {
+function PermanentDrawerLeft({ favoritesData, fetchFavoriteUserDecks }) {
+    const userid = useSelector(state => state.User.id)
+    const username = useSelector(state => state.User.username)
+    const favoriteDecks = useSelector(state => state.User.favoritedecks)
+    const decks = useSelector(state => state.Deck.decks)
+    let user_deck_count_display;
+
+    // useEffect(() => {
+    //     // fetchDecks(1),
+    //     fetchFavoriteUserDecks(userid)
+    // }, [])
     const classes = useStyles();
     // TODO: get these values from the database :)
-    const username = "Break Bot";
+    const displayName = username;
     const user_deck_count = 0;
-    const user_deck_count_display = "Your decks: " + String(user_deck_count);
+    console.log(favoriteDecks)
+    if (favoriteDecks) {
+        user_deck_count_display = "Your decks: " + favoriteDecks.length;
+    }
     const user_initials = username.split(/\s/).reduce((response, word) => response += word.slice(0, 1), '').slice(0, 2);
 
     return (
@@ -66,7 +84,7 @@ export default function PermanentDrawerLeft() {
                     {/* <Avatar alt="BreakBot" src="https://i.imgur.com/byozd3F.png" /> */}
                     <Avatar className={classes.purple}>{user_initials}</Avatar>
                     <Typography variant="h5" noWrap> {/* Username goes here */}
-                        {username}
+                        {displayName}
                     </Typography>
                     <Typography variant="h6" noWrap> {/* deck count goes here */}
                         {user_deck_count_display}
@@ -88,6 +106,15 @@ export default function PermanentDrawerLeft() {
                             </ListItemIcon>
                             <ListItemText primary={text} />
                         </ListItem>
+
+                    ))}
+                    {Object.values(decks).map(deck => (<ListItem button key={deck.id} onClick={() => {
+                        alert("✔️ This works on every component!");
+                    }}>
+                        <ListItemIcon>
+                        </ListItemIcon>
+                        <ListItemText primary={deck.title} />
+                    </ListItem>
                     ))}
                 </List>
                 <Divider />
@@ -95,4 +122,20 @@ export default function PermanentDrawerLeft() {
         </div>
     );
 }
+
+const mapStateToProps = state => {
+    return {
+        deckData: state.Deck.decks,
+        favoritesData: state.User.favoritedecks
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        // fetchDecks: (userid) => dispatch(fetchDecks(userid)),
+        fetchFavoriteUserDecks: (userid) => dispatch(fetchFavoriteUserDecks(userid))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PermanentDrawerLeft)
 

@@ -6,8 +6,20 @@ import configureStore from "./store/configureStore";
 // import "./index.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
+import jwt_decode from 'jwt-decode'
 
-const store = configureStore();
+let store;
+
+if (localStorage["flashnerd/authentication/TOKEN"]) {
+  const decodedUser = jwt_decode(localStorage["flashnerd/authentication/TOKEN"])
+  const preState = { User: decodedUser, Deck: { decks: decodedUser.decks } }
+  console.log(decodedUser)
+  store = configureStore(preState)
+}
+else {
+  store = configureStore();
+}
+
 
 ReactDOM.render(
   <React.StrictMode>
