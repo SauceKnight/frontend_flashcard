@@ -4,12 +4,12 @@ import { getAllCards } from "../reducers/cardManagement";
 import { useSelector, useDispatch } from "react-redux";
 
 function ShowCards(props) {
-	const cards = useSelector((state) => state.Cards.cards);
+	const cards = useSelector((state) => state.Cards);
 	const { id } = props.match.params;
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(getAllCards(id));
-	}, []);
+	}, [id]);
 
 	if (!cards) {
 		return null;
@@ -18,10 +18,10 @@ function ShowCards(props) {
 	console.log("TEST FOR CARDS", cards);
 	return (
 		<div>
-			{cards.map((card) => (
+			{Object.values(cards).map((card) => (
 				<li>
-					<p>{card.question}</p>
-					<p>{card.answer}</p>
+					<p className="center">{card.question}</p>
+					<p className="center">{card.answer}</p>
 				</li>
 			))}
 		</div>

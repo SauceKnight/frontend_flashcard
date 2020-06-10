@@ -5,7 +5,6 @@ import {
 import { SET_TOKEN } from '../reducers/authentication'
 
 const initialState = {
-    decks: [],
 }
 
 const reducer = (state = initialState, action) => {
@@ -13,12 +12,12 @@ const reducer = (state = initialState, action) => {
         case FETCH_SEARCH_DECKS:
             return {
                 ...state,
-                decks: action.payload.data,
+                ...action.payload.data,
             }
         case SET_TOKEN:
             return {
                 ...state,
-                decks: action.payload.decks,
+                ...action.payload.decks,
             }
 
         default: return state

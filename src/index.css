@@ -65,3 +65,7 @@
 	text-align: center;
 	transform: rotateY(180deg);
 }
+
+.center{
+    text-align: center;
+}
