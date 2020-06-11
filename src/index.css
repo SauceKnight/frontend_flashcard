@@ -24,8 +24,8 @@
 
 .card {
   position: relative;
-  width: 500px;
-  height: 500px;
+  /* width: 500px;
+  height: 500px; */
   cursor: pointer;
   transform-style: preserve-3d;
   transform-origin: center right;
@@ -125,3 +125,8 @@
 .center{
     text-align: center;
 }
+
+.link {
+    color: black;
+    text-decoration: none;
+  }

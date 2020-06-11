@@ -6,15 +6,25 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import "../index.css";
+
+const drawerWidth = 240
 const useStyles = makeStyles((theme) => ({
 	root: {
 		flexGrow: 1,
+		width: `calc(100% - ${drawerWidth}px)`,
+		marginLeft: drawerWidth + 5,
+		paddingRight: 10
 	},
 	paper: {
-		padding: theme.spacing(1),
+		padding: theme.spacing(5),
 		textAlign: "center",
 		color: theme.palette.text.secondary,
 	},
+	study: {
+		paddingTop: theme.spacing(5),
+		textAlign: "center",
+	},
+
 }));
 
 export default function ShowCards(props) {
@@ -51,6 +61,13 @@ export default function ShowCards(props) {
 	return (
 		<div className={classes.root}>
 			<Grid container spacing={1}>
+				<Grid item xs={6}>
+					<h3 className={classes.study}>Question</h3>
+				</Grid>
+
+				<Grid item xs={6}>
+					<h3 className={classes.study}>Answer</h3>
+				</Grid>
 				<Grid container item xs={24} spacing={3}>
 					<FormRow />
 				</Grid>
