@@ -5,15 +5,20 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import "./styles.css";
+import "../index.css";
 
 // This component is for displaying a single card, and has associated css to
 // get the card to flip when you click it. You can use this component to 
 // make a wall of cards that each flip, or show flippable cards one-by-one.
 
+const drawerWidth = 240
 const useStyles = makeStyles({
   root: {
-    minWidth: 300
+    flexGrow: 1,
+    width: `calc(85%)`,
+    marginLeft: drawerWidth + 5,
+    marginRight: 10,
+    paddingTop: 500
   },
   bullet: {
     display: "inline-block",
@@ -99,4 +104,5 @@ export default function CardViewer() {
           </Card>
         </div>
       </div>
-    </div>
+    </div>)
+};
