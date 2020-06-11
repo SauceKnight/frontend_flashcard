@@ -14,26 +14,32 @@
   text-align: center;
 }
 
-.cardViewer_scene {
-  /* width: 600px;
-  height: 300px; */
-  /* border: 1px solid #ccc;*/
+.button-card-button {
+	display: flex;
+	justify-content: center;
+	align-items: row;
+	margin-left: 239px;
+}
+
+.scene {
+  width: 500px;
+  height: 300px;
+  border: 1px solid #CCC;
   /* margin: 40px 0; */
   perspective: 600px;
 }
 
 .card {
-  position: relative;
-  /* width: 500px;
-  height: 500px; */
-  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.4s;
   transform-style: preserve-3d;
-  transform-origin: center right;
-  transition: transform 1s;
+  cursor: pointer;
+  position: relative;
 }
 
 .card.is-flipped {
-  transform: translateX(-100%) rotateY(-180deg);
+  transform: rotateX(180deg);
 }
 
 .card__face {
@@ -45,17 +51,21 @@
   text-align: center;
   font-weight: bold;
   font-size: 40px;
+  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
 
-/* .card__face--front {
-
-} */
-
 .card__face--back {
-  /* background: blue; */
-  transform: rotateY(180deg);
+  /* width: 100%; */
+  /* height: 100%; */
+  transform: rotateX(180deg);
 }
+
+.card__face--front {
+  /* width: 100%; */
+  /* height: 100%; */
+}
+
 
 /* * STYLING THE CARD COMPONENT */
 /* THE MAINCONTAINER HOLDS EVERYTHING */
