@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -15,15 +16,10 @@ const drawerWidth = 240
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
-    width: `calc(85%)`,
-    marginLeft: drawerWidth + 5,
-    marginRight: 10,
-    paddingTop: 500
-  },
-  bullet: {
-    display: "inline-block",
-    margin: "0 2px",
-    transform: "scale(0.8)"
+    // width: `calc(85%)`
+    // marginLeft: drawerWidth + 5,
+    // marginRight: 10,
+    // paddingTop: 500
   },
   title: {
     fontSize: 14
@@ -38,71 +34,105 @@ function toggler(event) {
   console.log(event.currentTarget);
 }
 
-export default function CardViewer() {
+function mark_as_complete(event) {
+  // mark card as complete in db
+}
+
+function back(event) {
+  // back to previous card
+  // if statement logic here for not going back if you are on the first card
+}
+
+function next(event) {
+  // go to next card
+  // if statement logic here for not going forward if you are on the last card
+}
+
+export default function CardViewer(props) {
   const classes = useStyles();
+
+  // const userid = useSelector(state => state.User.id)
+  // const username = useSelector(state => state.User.username)
+  // const favoriteDecks = useSelector(state => state.User.favoritedecks)
+  // const decks = useSelector(state => state.Deck)
+  //const cards = useSelector(state => state.Cards)
+  //console.log(cards);
+  const {id} = props.match.params;
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch(getAllCards(id));
+  // }, [id]);
+  // let cardTerm = "";
+  
+  console.log("id is: " + String(id));
+  console.log(props.match.params);
+
   return (
-    <div className="cardViewer_scene scene--card">
-      <div className="card" onClick={event => toggler(event)}>
-        <div className="card__face card__face--front">
-          <Card className={classes.root}>
-            <CardContent>
-              <Typography
-                className={classes.title}
-                color="textSecondary"
-                gutterBottom
-              >
-                {/* OPTIONAL: display deck when viewing cards from different decks */}
-                {/* Deck: Object-Oriented Programming */}
+    <div className="button-card-button"> {/* container for back button, card, next button */}
+      <Button variant="contained" className="back_button_cv" onClick={event => back(event)}>Back</Button>
+      <div className="scene scene--card">
+        <div className="card" onClick={event => toggler(event)}>
+          <div className="card__face card__face--front">
+            <Card className={classes.root}>
+              <CardContent>
+                <Typography
+                  className={classes.title}
+                  color="textSecondary"
+                  gutterBottom
+                >
+                  {/* OPTIONAL: display deck when viewing cards from different decks */}
+                  {/* Deck: Object-Oriented Programming */}
+                </Typography>
+                <Typography variant="h5" component="h2">
+                  Object
               </Typography>
-              <Typography variant="h5" component="h2">
-                Object
-              </Typography>
-              <Typography className={classes.pos} color="textSecondary" />
-              <Typography variant="body2" component="p">
-                {/* OPTIONAL: hint message below, might not be needed */}
+                <Typography className={classes.pos} color="textSecondary" />
+                <Typography variant="body2" component="p">
+                  {/* OPTIONAL: hint message below, might not be needed */}
                 (click card show answer)
                 <br />
-              </Typography>
-            </CardContent>
-            <CardActions>
-              {/* TODO: edit card when button is pressed */}
-              <Button size="small">Edit Card</Button>
-            </CardActions>
-          </Card>
-        </div>
-        <div className="card__face card__face--back">
-          <Card className={classes.root}>
-            <CardContent>
-              <Typography
-                className={classes.title}
-                color="textSecondary"
-                gutterBottom
-              >
-                {/* OPTIONAL: display deck when viewing cards from different decks */}
-                {/* Deck: Object-Oriented Programming */}
-              </Typography>
-              <Typography variant="h5" component="h2">
-                Object
-              </Typography>
-              <Typography className={classes.pos} color="textSecondary" />
-              <Typography variant="body2" component="p">
-                an entity containing a compilation of states and behaviors. Each
-                is an instance of a class. Store a memory location, which refers
-                to the location of the actual entity.
-                <br />
-              </Typography>
-            </CardContent>
-            <div className="cardViewer_buttons">
-              <CardActions>
-                {/* TODO: edit card when button is pressed */}
+                </Typography>
+              </CardContent>
+              {/* <CardActions>
                 <Button size="small">Edit Card</Button>
-              </CardActions>
-              <CardActions>
-                <Button size="small">Mark as Complete</Button>
-              </CardActions>
-            </div>
-          </Card>
+              </CardActions> */}
+            </Card>
+          </div>
+          <div className="card__face card__face--back">
+            <Card className={classes.root}>
+              <CardContent>
+                <Typography
+                  className={classes.title}
+                  color="textSecondary"
+                  gutterBottom
+                >
+                  {/* OPTIONAL: display deck when viewing cards from different decks */}
+                  {/* Deck: Object-Oriented Programming */}
+                </Typography>
+                <Typography variant="h5" component="h2">
+                  Object
+              </Typography>
+                <Typography className={classes.pos} color="textSecondary" />
+                <Typography variant="body2" component="p">
+                  an entity containing a compilation of states and behaviors. Each
+                  is an instance of a class. Store a memory location, which refers
+                  to the location of the actual entity.
+                <br />
+                </Typography>
+              </CardContent>
+              <div className="cardViewer_buttons">
+                {/* <CardActions>
+                  <Button size="small">Edit Card</Button>
+                </CardActions> */}
+                <CardActions>
+                  <Button size="small" onClick={event => mark_as_complete(event)}>Mark as Complete</Button>
+                </CardActions>
+              </div>
+            </Card>
+          </div>
         </div>
       </div>
-    </div>)
+      <Button variant="contained" className="next_button_cv" onClick={event => next(event)}>Next</Button>
+    </div>
+    )
 };

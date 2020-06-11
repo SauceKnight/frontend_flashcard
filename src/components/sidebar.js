@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
 import { fetchFavoriteUserDecks } from '../reducers/authentication';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
@@ -15,11 +15,11 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import AddIcon from "@material-ui/icons/Add";
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
-import FormDialog from './newdeck'
+import FormDialog from './newdeck';
 import ShowCards from "./cards";
 
 
@@ -54,13 +54,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function PermanentDrawerLeft(props) {
-    const userid = useSelector(state => state.User.id)
-    const username = useSelector(state => state.User.username)
-    const favoriteDecks = useSelector(state => state.User.favoritedecks)
-    const decks = useSelector(state => state.Deck)
-    const cards = useSelector(state => state.Cards)
+    const userid = useSelector(state => state.User.id);
+    const username = useSelector(state => state.User.username);
+    const favoriteDecks = useSelector(state => state.User.favoritedecks);
+    const decks = useSelector(state => state.Deck);
+    const cards = useSelector(state => state.Cards);
     let user_deck_count_display;
-    console.log(props)
+    console.log(props);
 
     // useEffect(() => {
     //     // fetchDecks(1),
@@ -70,11 +70,11 @@ function PermanentDrawerLeft(props) {
     // TODO: get these values from the database :)
     const displayName = username;
     const user_deck_count = 0;
-    console.log(favoriteDecks)
+    console.log(favoriteDecks);
     if (favoriteDecks) {
         user_deck_count_display = "Your decks: " + favoriteDecks.length;
     }
-    const user_initials = username.split(/\s/).reduce((response, word) => response += word.slice(0, 1), '').slice(0, 2);
+    const user_initials = username.split(/\s/).reduce((response, word) => response += word.slice(0, 1), '').slice(0, 2).toUpperCase();
 
     return (
         <div className={classes.root}>
