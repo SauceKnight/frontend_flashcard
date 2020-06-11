@@ -16,11 +16,11 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import AddIcon from "@material-ui/icons/Add";
 import { useSelector, useDispatch } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import FormDialog from "./newdeck";
-import DeckHeader from "./deckHeader";
+import ShowCards from "./cards";
 
 const drawerWidth = 240;
 
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 		width: drawerWidth,
 		backgroundColor: "#f57c00",
 	},
-	// necessary for content to be below app bar
+
 	toolbar: theme.mixins.toolbar,
 	content: {
 		flexGrow: 1,
@@ -49,13 +49,14 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-function PermanentDrawerLeft({ favoritesData, fetchFavoriteUserDecks }) {
+function PermanentDrawerLeft(props) {
 	const userid = useSelector((state) => state.User.id);
 	const username = useSelector((state) => state.User.username);
 	const favoriteDecks = useSelector((state) => state.User.favoritedecks);
 	const decks = useSelector((state) => state.Deck);
-	console.log("MY DECK", decks);
+	const cards = useSelector((state) => state.Cards);
 	let user_deck_count_display;
+	console.log(props);
 
 	// useEffect(() => {
 	//     // fetchDecks(1),
@@ -77,9 +78,6 @@ function PermanentDrawerLeft({ favoritesData, fetchFavoriteUserDecks }) {
 	return (
 		<div className={classes.root}>
 			<CssBaseline />
-			<AppBar position="fixed" className={classes.appBar}>
-				<DeckHeader />
-			</AppBar>
 			<Drawer
 				className={classes.drawer}
 				variant="permanent"
@@ -120,7 +118,7 @@ function PermanentDrawerLeft({ favoritesData, fetchFavoriteUserDecks }) {
 						<FormDialog />
 					</ListItem>
 					{Object.values(decks).map((deck) => (
-						<Link to={`/cards/${deck.id}`}>
+						<Link to={`/cards/${deck.id}/study`} className="link">
 							<ListItem button key={deck.id}>
 								<ListItemIcon></ListItemIcon>
 								<ListItemText primary={deck.title} />
@@ -130,6 +128,9 @@ function PermanentDrawerLeft({ favoritesData, fetchFavoriteUserDecks }) {
 				</List>
 				<Divider />
 			</Drawer>
+			<main className={classes.content}>
+				<div className={classes.toolbar} />
+			</main>
 		</div>
 	);
 }
