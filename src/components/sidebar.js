@@ -18,6 +18,8 @@ import AddIcon from "@material-ui/icons/Add";
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from "react-router-dom";
 import { Link } from 'react-router-dom';
+import AppBar from '@material-ui/core/AppBar';
+import FormDialog from './newdeck'
 
 
 
@@ -73,6 +75,9 @@ function PermanentDrawerLeft({ favoritesData, fetchFavoriteUserDecks }) {
     return (
         <div className={classes.root}>
             <CssBaseline />
+            <AppBar position="fixed" className={classes.appBar}>
+                <h1>Test</h1>
+            </AppBar>
             <Drawer
                 className={classes.drawer}
                 variant="permanent"
@@ -99,17 +104,9 @@ function PermanentDrawerLeft({ favoritesData, fetchFavoriteUserDecks }) {
 
                 <Divider />
                 <List>
-                    {['Create new Deck'].map((text, index) => (
-                        <ListItem button key={text} onClick={() => {
-                            alert("✔️ This works on every component!");
-                        }}>
-                            <ListItemIcon>
-                                <AddIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItem>
-
-                    ))}
+                    <ListItem>
+                        <FormDialog />
+                    </ListItem>
                     {Object.values(decks).map(deck => (<Link to={`/cards/${deck.id}`}><ListItem button key={deck.id}>
                         <ListItemIcon>
                         </ListItemIcon>
