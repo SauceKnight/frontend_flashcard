@@ -5,15 +5,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import "../index.css";
+// import "../index.css";
 
-const drawerWidth = 240
+const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
 	root: {
 		flexGrow: 1,
 		width: `calc(100% - ${drawerWidth}px)`,
 		marginLeft: drawerWidth + 5,
-		paddingRight: 10
+		paddingRight: 10,
 	},
 	paper: {
 		padding: theme.spacing(5),
@@ -23,8 +23,8 @@ const useStyles = makeStyles((theme) => ({
 	study: {
 		paddingTop: theme.spacing(5),
 		textAlign: "center",
+		color: "black",
 	},
-
 }));
 
 export default function ShowCards(props) {

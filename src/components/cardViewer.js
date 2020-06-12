@@ -48,6 +48,9 @@ const useStyles = makeStyles((theme) => ({
 		width: "120px",
 		marginTop: "30px",
 		// marginLeft: "30px",
+		marginLeft: 30,
+	},
+	buttons: {
 		marginLeft: "480px",
 	},
 	colorStyle: {
@@ -77,12 +80,20 @@ export default function CardViewer(props) {
 		return null;
 	}
 
-	function updateCurrentCard(e) {
+	function updateNextCurrentCard(e) {
 		e.stopPropagation();
 		if (currentCard == newCards.length - 1) {
 			return setCurrentCard(0);
 		}
 		return setCurrentCard(currentCard + 1);
+	}
+
+	function updatePreviousCurrentCard(e) {
+		e.stopPropagation();
+		if (currentCard == 0) {
+			return setCurrentCard(newCards.length - 1);
+		}
+		return setCurrentCard(currentCard - 1);
 	}
 
 	console.log("TEST FOR CARDs", cards);
@@ -118,6 +129,15 @@ export default function CardViewer(props) {
 										<br />
 									</Typography>
 								</CardContent>
+								{/* <CardActions className={classes.colorStyle}>
+									<Button
+										size="small"
+										className={classes.editCardButton}
+										onClick={updateCurrentCard}
+									>
+										Edit Card
+									</Button>
+								</CardActions> */}
 							</Card>
 						</div>
 						<div className="card__face card__face--back">
@@ -144,13 +164,6 @@ export default function CardViewer(props) {
 						</div>
 					</div>
 				</div>
-				<Button
-					size="small"
-					className={classes.colorStyle}
-					onClick={updateCurrentCard}
-				>
-					NExt
-				</Button>
 			</div>
 
 			<div>
@@ -161,13 +174,25 @@ export default function CardViewer(props) {
 				>
 					NExt
 				</Button> */}
-				<button
-					size="small"
-					className={classes.editCardButton}
-					onClick={updateCurrentCard}
-				>
-					NExt
-				</button>
+				<div className={classes.buttons}>
+					<Button
+						size="small"
+						className={classes.editCardButton}
+						onClick={updatePreviousCurrentCard}
+					>
+						Previous
+					</Button>
+					<Button size="small" className={classes.editCardButton}>
+						Completed
+					</Button>
+					<Button
+						size="small"
+						className={classes.editCardButton}
+						onClick={updateNextCurrentCard}
+					>
+						Next
+					</Button>
+				</div>
 			</div>
 		</>
 	);

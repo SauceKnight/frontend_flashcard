@@ -1,4 +1,4 @@
-html,
+/* html,
 body {
 	height: 100vh;
 	width: 100vw;
@@ -8,7 +8,7 @@ body {
 	justify-content: flex-start;
 	background: #f3f2f2;
 	background-size: cover;
-}
+} */
 
 /* cardViewer styles: */
 
@@ -69,12 +69,12 @@ body {
 } */
 
 /* STYLE THE CARDS */
-.makeStyles-paper-2 {
+/* .makeStyles-paper-2 {
 	height: 60px;
 	padding: 20px;
 	margin: 30px;
 	width: 70%;
-}
+} */
 
 .center {
 	text-align: center;
