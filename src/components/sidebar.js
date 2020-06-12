@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { fetchFavoriteUserDecks } from "../reducers/authentication";
+import { loggedInDecks } from "../deck/deckActions";
 import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -24,7 +25,6 @@ import ShowCards from "./cards";
 import IconButton from "@material-ui/core/IconButton";
 import SearchIcon from "@material-ui/icons/Search";
 import SearchDecks from "./searchDeck";
-import { DebounceInput } from "react-debounce-input";
 
 const drawerWidth = 240;
 
@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 		width: drawerWidth,
 		backgroundColor: "#f57c00",
 	},
-
+	// necessary for content to be below app bar
 	toolbar: theme.mixins.toolbar,
 	content: {
 		flexGrow: 1,
@@ -59,26 +59,29 @@ function PermanentDrawerLeft(props) {
 	const favoriteDecks = useSelector((state) => state.User.favoritedecks);
 	const decks = useSelector((state) => state.Deck);
 	const cards = useSelector((state) => state.Cards);
-	let shownDecks = Object.values(favoriteDecks);
+	const dispatch = useDispatch();
 	let displayedDecks = [];
-	for (let i = 0; i <= shownDecks.length; i++) {
-		if (decks[shownDecks[i]]) {
-			displayedDecks.push(decks[shownDecks[i]]);
+	if (favoriteDecks) {
+		let shownDecks = Object.values(favoriteDecks);
+		for (let i = 0; i <= shownDecks.length; i++) {
+			if (decks[shownDecks[i]]) {
+				displayedDecks.push(decks[shownDecks[i]]);
+			}
 		}
 	}
 
 	let user_deck_count_display;
 	console.log(props);
 
-	// useEffect(() => {
-	//     // fetchDecks(1),
-	//     fetchFavoriteUserDecks(userid)
-	// }, [])
+	useEffect(() => {
+		// fetchDecks(1),
+		dispatch(loggedInDecks(userid));
+	}, []);
 	const classes = useStyles();
 	// TODO: get these values from the database :)
 	const displayName = username;
 	const user_deck_count = 0;
-	// console.log(favoriteDecks);
+	console.log(favoriteDecks);
 	if (favoriteDecks) {
 		user_deck_count_display = "Your decks: " + favoriteDecks.length;
 	}
@@ -118,19 +121,15 @@ function PermanentDrawerLeft(props) {
 						{/* deck count goes here */}
 						{user_deck_count_display}
 					</Typography>
+					{/* 
+                    NOTE: this would be an excellent place to put a sign-in button 
+                    if the user is not signed in, and hide the avatar/username
+                    */}
 				</Box>
 
 				<Divider />
+				<SearchDecks />
 				<List>
-					<ListItem>
-						{/* <IconButton color="inherit"> */}
-						{/* <Link to={`/search`}>
-								<SearchIcon />
-								<SearchDecks />
-							</Link> */}
-						<SearchDecks />
-						{/* </IconButton> */}
-					</ListItem>
 					<ListItem>
 						<FormDialog />
 					</ListItem>
