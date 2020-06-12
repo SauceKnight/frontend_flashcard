@@ -22,7 +22,10 @@ import AppBar from '@material-ui/core/AppBar';
 import FormDialog from './newdeck'
 import ShowCards from "./cards";
 import Button from "@material-ui/core/Button";
-import { orange } from '@material-ui/core/colors';
+import { orange, grey } from '@material-ui/core/colors';
+import NewCard from './newcard'
+import StarIcon from '@material-ui/icons/Star';
+
 
 
 
@@ -61,6 +64,11 @@ function DeckHeader(props) {
     const cards = useSelector(state => state.Cards)
     const classes = useStyles();
     const { id } = props.match.params;
+
+    let iconStyles = {
+        fontSize: '24px',
+        color: grey[50]
+    };
     // TODO: get these values from the database :)
     if (decks[id]) {
         return (
@@ -84,11 +92,9 @@ function DeckHeader(props) {
                                Study
                             </Button>
                         </Link>
+                        <NewCard props={id} />
                         <Button variant="" color="primary">
-                            <AddIcon />
-                        </Button>
-                        <Button variant="" color="primary">
-                            <AddIcon />
+                            <StarIcon style={iconStyles} />
                         </Button>
                     </div>
                 </AppBar>

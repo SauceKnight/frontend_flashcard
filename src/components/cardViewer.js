@@ -1,108 +1,203 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useState, useEffect } from "react";
+// import { Redirect } from "react-router-dom";
+import { getAllCards } from "../reducers/cardManagement";
+import { useSelector, useDispatch } from "react-redux";
+import Paper from "@material-ui/core/Paper";
+import Grid from "@material-ui/core/Grid";
+import "../index.css";
+
+import { makeStyles, useTheme, fade } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import "../index.css";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardMedia from "@material-ui/core/CardMedia";
 
-// This component is for displaying a single card, and has associated css to
-// get the card to flip when you click it. You can use this component to 
-// make a wall of cards that each flip, or show flippable cards one-by-one.
-
-const drawerWidth = 240
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
-    width: `calc(85%)`,
-    marginLeft: drawerWidth + 5,
-    marginRight: 10,
-    paddingTop: 500
+    minWidth: 275,
+    marginTop: "100px",
+    marginLeft: "480px",
+    width: "700px",
+    height: "400px",
+    borderRadius: "20px",
+    cursor: "pointer",
+    backgroundColor: "#ffb74d",
+    background: theme.gradientBackground,
   },
-  bullet: {
-    display: "inline-block",
-    margin: "0 2px",
-    transform: "scale(0.8)"
-  },
-  title: {
-    fontSize: 14
-  },
+
   pos: {
-    marginBottom: 12
-  }
-});
+    marginBottom: 12,
+  },
+  header: {
+    marginTop: "20px",
+    marginBottom: "20px",
+    fontSize: "20px",
+    color: "white",
+  },
+  bodyText: {
+    fontSize: "30px",
+    color: "orange",
+  },
+  editCardButton: {
+    borderRadius: "20px",
+    color: "#616161",
+    backgroundColor: "#ffe0b2",
+    width: "120px",
+    marginTop: "30px",
+    // marginLeft: "30px",
+    marginLeft: 30
+
+  },
+  buttons: {
+    marginLeft: "480px",
+  },
+  colorStyle: {
+    backgroundColor: "linear-gradient(to top, #ffb74d, transparent)",
+
+    // background: theme.gradientBackground,
+  },
+}));
 
 function toggler(event) {
   event.currentTarget.classList.toggle("is-flipped");
-  console.log(event.currentTarget);
+
+  console.log("MIIIIII", event.currentTarget);
 }
 
-export default function CardViewer() {
+export default function CardViewer(props) {
   const classes = useStyles();
+  const cards = useSelector((state) => state.Cards);
+  const { id } = props.match.params;
+  const dispatch = useDispatch();
+  let [currentCard, setCurrentCard] = useState(0);
+  useEffect(() => {
+    dispatch(getAllCards(id));
+  }, [id]);
+
+  if (!cards) {
+    return null;
+  }
+
+  function updateNextCurrentCard(e) {
+    e.stopPropagation();
+    if (currentCard == newCards.length - 1) {
+      return setCurrentCard(0);
+    }
+    return setCurrentCard(currentCard + 1);
+  }
+
+  function updatePreviousCurrentCard(e) {
+    e.stopPropagation();
+    if (currentCard == 0) {
+      return setCurrentCard(newCards.length - 1);
+    }
+    return setCurrentCard(currentCard - 1);
+  }
+
+  console.log("TEST FOR CARDs", cards);
+  let newCards = Object.values(cards);
+  console.log("newCards", newCards);
+  // let i = 0;
+
+  if (!newCards.length) {
+    return null;
+  }
+
   return (
-    <div className="cardViewer_scene scene--card">
-      <div className="card" onClick={event => toggler(event)}>
-        <div className="card__face card__face--front">
-          <Card className={classes.root}>
-            <CardContent>
-              <Typography
-                className={classes.title}
-                color="textSecondary"
-                gutterBottom
-              >
-                {/* OPTIONAL: display deck when viewing cards from different decks */}
-                {/* Deck: Object-Oriented Programming */}
-              </Typography>
-              <Typography variant="h5" component="h2">
-                Object
-              </Typography>
-              <Typography className={classes.pos} color="textSecondary" />
-              <Typography variant="body2" component="p">
-                {/* OPTIONAL: hint message below, might not be needed */}
-                (click card show answer)
-                <br />
-              </Typography>
-            </CardContent>
-            <CardActions>
-              {/* TODO: edit card when button is pressed */}
-              <Button size="small">Edit Card</Button>
-            </CardActions>
-          </Card>
-        </div>
-        <div className="card__face card__face--back">
-          <Card className={classes.root}>
-            <CardContent>
-              <Typography
-                className={classes.title}
-                color="textSecondary"
-                gutterBottom
-              >
-                {/* OPTIONAL: display deck when viewing cards from different decks */}
-                {/* Deck: Object-Oriented Programming */}
-              </Typography>
-              <Typography variant="h5" component="h2">
-                Object
-              </Typography>
-              <Typography className={classes.pos} color="textSecondary" />
-              <Typography variant="body2" component="p">
-                an entity containing a compilation of states and behaviors. Each
-                is an instance of a class. Store a memory location, which refers
-                to the location of the actual entity.
-                <br />
-              </Typography>
-            </CardContent>
-            <div className="cardViewer_buttons">
-              <CardActions>
-                {/* TODO: edit card when button is pressed */}
-                <Button size="small">Edit Card</Button>
-              </CardActions>
-              <CardActions>
-                <Button size="small">Mark as Complete</Button>
-              </CardActions>
+    <>
+      <div className="cardViewer_scene scene--card">
+        <div className="card" onClick={(event) => toggler(event)}>
+          <div>
+            <div className="card__face card__face--front">
+              <Card className={classes.root}>
+                <CardContent>
+                  <Typography
+                    className={classes.header}
+                    variant="h5"
+                    component="h2"
+                  >
+                    Your today's flashcard
+									</Typography>
+                  <Typography
+                    variant="body2"
+                    className={classes.bodyText}
+                    component="p"
+                  >
+                    {newCards[currentCard].question}
+                    <br />
+                  </Typography>
+                </CardContent>
+                {/* <CardActions className={classes.colorStyle}>
+									<Button
+										size="small"
+										className={classes.editCardButton}
+										onClick={updateCurrentCard}
+									>
+										Edit Card
+									</Button>
+								</CardActions> */}
+              </Card>
             </div>
-          </Card>
+            <div className="card__face card__face--back">
+              <Card className={classes.root}>
+                <CardContent>
+                  <Typography
+                    className={classes.header}
+                    variant="h5"
+                    component="h2"
+                  >
+                    Answer
+									</Typography>
+                  <Typography
+                    variant="body2"
+                    className={classes.bodyText}
+                    component="p"
+                  >
+                    {newCards[currentCard].answer}
+                    <br />
+                  </Typography>
+                </CardContent>
+                <div className="cardViewer_buttons"></div>
+              </Card>
+            </div>
+          </div>
         </div>
       </div>
-    </div>)
-};
+
+      <div>
+        {/* <Button
+					size="small"
+					className={classes.editCardButton}
+					onClick={updateCurrentCard}
+				>
+					NExt
+				</Button> */}
+        <div className={classes.buttons}>
+          <Button
+            size="small"
+            className={classes.editCardButton}
+            onClick={updatePreviousCurrentCard}
+          >
+            Previous
+				</Button>
+          <Button
+            size="small"
+            className={classes.editCardButton}
+          >
+            Completed
+				</Button>
+          <Button
+            size="small"
+            className={classes.editCardButton}
+            onClick={updateNextCurrentCard}
+          >
+            Next
+				</Button>
+        </div>
+      </div>
+    </>
+  );
+}

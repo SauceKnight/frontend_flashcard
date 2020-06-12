@@ -1,10 +1,18 @@
 export const FETCH_CURRENT_CARD = "FECTH_CURRENT_CARD";
 export const FETCH_ALL_CARDS = "FECTH_ALL_CARDS";
 export const COMPLETED_CARD = "COMPLETED_CARD";
+export const CREATE_CARDS = "CREATE_CARDS";
 
 export const fetchAllCards = (cards) => {
 	return {
 		type: FETCH_ALL_CARDS,
+		cards,
+	};
+};
+
+export const createCard = (cards) => {
+	return {
+		type: CREATE_CARDS,
 		cards,
 	};
 };
@@ -23,6 +31,21 @@ export const getAllCards = (id) => async (dispatch) => {
 		dispatch(fetchAllCards(res.data));
 	}
 };
+
+export const createNewCards = (deck_id, question, answer) => async (dispatch) => {
+	const response = await fetch(`http://localhost:5000/cards/${deck_id}`, {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({ deck_id, question, answer }),
+	});
+	if (response.ok) {
+		const res = await response.json();
+		console.log("TEST FOR NEW CARD", res.data);
+		dispatch(createCard(res.data));
+	}
+};
+
+
 ////FETCH SINGLER CARD
 export const getOneCard = (deckId, cardId) => async (dispatch) => {
 	const response = await fetch(
@@ -41,6 +64,11 @@ export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case FETCH_ALL_CARDS:
 			return {
+				...action.cards,
+			};
+		case CREATE_CARDS:
+			return {
+				...state,
 				...action.cards,
 			};
 		case FETCH_CURRENT_CARD:
