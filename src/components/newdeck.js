@@ -38,7 +38,7 @@ export default function FormDialog() {
         setOpen(false);
         e.preventDefault();
         dispatch(newDeck(user_id, title, description));
-
+        debugger
     }
 
     return (

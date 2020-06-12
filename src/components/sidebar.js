@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { fetchFavoriteUserDecks } from '../reducers/authentication';
+import { loggedInDecks } from '../deck/deckActions'
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -21,6 +22,8 @@ import { Link } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import FormDialog from './newdeck'
 import ShowCards from "./cards";
+import IconButton from "@material-ui/core/IconButton";
+import SearchIcon from "@material-ui/icons/Search";
 
 
 
@@ -59,21 +62,25 @@ function PermanentDrawerLeft(props) {
     const favoriteDecks = useSelector(state => state.User.favoritedecks)
     const decks = useSelector(state => state.Deck)
     const cards = useSelector(state => state.Cards)
-    let shownDecks = Object.values(favoriteDecks)
+    const dispatch = useDispatch()
     let displayedDecks = []
-    for (let i = 0; i <= shownDecks.length; i++) {
-        if (decks[shownDecks[i]]) {
-            displayedDecks.push(decks[shownDecks[i]]);
+    if (favoriteDecks) {
+        let shownDecks = Object.values(favoriteDecks)
+        for (let i = 0; i <= shownDecks.length; i++) {
+            if (decks[shownDecks[i]]) {
+                displayedDecks.push(decks[shownDecks[i]]);
+            }
         }
+
     }
 
     let user_deck_count_display;
     console.log(props)
 
-    // useEffect(() => {
-    //     // fetchDecks(1),
-    //     fetchFavoriteUserDecks(userid)
-    // }, [])
+    useEffect(() => {
+        // fetchDecks(1),
+        dispatch(loggedInDecks(userid))
+    }, [])
     const classes = useStyles();
     // TODO: get these values from the database :)
     const displayName = username;
@@ -83,6 +90,7 @@ function PermanentDrawerLeft(props) {
         user_deck_count_display = "Your decks: " + favoriteDecks.length;
     }
     const user_initials = username.split(/\s/).reduce((response, word) => response += word.slice(0, 1), '').slice(0, 2);
+
 
     return (
         <div className={classes.root}>
@@ -112,6 +120,11 @@ function PermanentDrawerLeft(props) {
                 </Box>
 
                 <Divider />
+                <IconButton color="inherit">
+                    <Link to={`/search`}>
+                        <SearchIcon />
+                    </Link>
+                </IconButton>
                 <List>
                     <ListItem>
                         <FormDialog />
@@ -131,6 +144,7 @@ function PermanentDrawerLeft(props) {
             </main>
         </div >
     );
+
 }
 
 const mapStateToProps = state => {
