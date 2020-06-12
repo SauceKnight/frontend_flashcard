@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { fetchFavoriteUserDecks } from '../reducers/authentication';
+import { getOneDeck } from '../deck/deckActions';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -24,6 +24,7 @@ import ShowCards from "./cards";
 import Button from "@material-ui/core/Button";
 import { orange, grey } from '@material-ui/core/colors';
 import NewCard from './newcard'
+import FavoriteStar from './FavoriteStar'
 import StarIcon from '@material-ui/icons/Star';
 
 
@@ -62,8 +63,13 @@ const useStyles = makeStyles((theme) => ({
 function DeckHeader(props) {
     const decks = useSelector(state => state.Deck)
     const cards = useSelector(state => state.Cards)
+    const user = useSelector(state => state.User)
     const classes = useStyles();
+    const dispatch = useDispatch()
     const { id } = props.match.params;
+    useEffect(() => {
+        dispatch(getOneDeck(user.id, id));
+    }, [id]);
 
     let iconStyles = {
         fontSize: '24px',
@@ -93,9 +99,7 @@ function DeckHeader(props) {
                             </Button>
                         </Link>
                         <NewCard props={id} />
-                        <Button variant="" color="primary">
-                            <StarIcon style={iconStyles} />
-                        </Button>
+                        <FavoriteStar props={id} />
                     </div>
                 </AppBar>
             </div >
