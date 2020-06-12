@@ -21,6 +21,10 @@ import { Link } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import FormDialog from "./newdeck";
 import ShowCards from "./cards";
+import IconButton from "@material-ui/core/IconButton";
+import SearchIcon from "@material-ui/icons/Search";
+import SearchDecks from "./searchDeck";
+import { DebounceInput } from "react-debounce-input";
 
 const drawerWidth = 240;
 
@@ -114,14 +118,19 @@ function PermanentDrawerLeft(props) {
 						{/* deck count goes here */}
 						{user_deck_count_display}
 					</Typography>
-					{/* 
-                    NOTE: this would be an excellent place to put a sign-in button 
-                    if the user is not signed in, and hide the avatar/username
-                    */}
 				</Box>
 
 				<Divider />
 				<List>
+					<ListItem>
+						{/* <IconButton color="inherit"> */}
+						{/* <Link to={`/search`}>
+								<SearchIcon />
+								<SearchDecks />
+							</Link> */}
+						<SearchDecks />
+						{/* </IconButton> */}
+					</ListItem>
 					<ListItem>
 						<FormDialog />
 					</ListItem>

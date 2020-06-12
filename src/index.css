@@ -205,3 +205,12 @@ h3,
 .signup-button {
 	margin-top: 10px;
 }
+
+.result {
+	margin-left: 500px;
+}
+
+.test {
+	font-size: 50px;
+	color: red;
+}

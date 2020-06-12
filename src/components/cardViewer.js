@@ -55,15 +55,11 @@ const useStyles = makeStyles((theme) => ({
 	},
 	colorStyle: {
 		backgroundColor: "linear-gradient(to top, #ffb74d, transparent)",
-
-		// background: theme.gradientBackground,
 	},
 }));
 
 function toggler(event) {
 	event.currentTarget.classList.toggle("is-flipped");
-
-	console.log("MIIIIII", event.currentTarget);
 }
 
 export default function CardViewer(props) {
@@ -99,7 +95,6 @@ export default function CardViewer(props) {
 	console.log("TEST FOR CARDs", cards);
 	let newCards = Object.values(cards);
 	console.log("newCards", newCards);
-	// let i = 0;
 
 	if (!newCards.length) {
 		return null;
@@ -129,15 +124,6 @@ export default function CardViewer(props) {
 										<br />
 									</Typography>
 								</CardContent>
-								{/* <CardActions className={classes.colorStyle}>
-									<Button
-										size="small"
-										className={classes.editCardButton}
-										onClick={updateCurrentCard}
-									>
-										Edit Card
-									</Button>
-								</CardActions> */}
 							</Card>
 						</div>
 						<div className="card__face card__face--back">
@@ -167,13 +153,6 @@ export default function CardViewer(props) {
 			</div>
 
 			<div>
-				{/* <Button
-					size="small"
-					className={classes.editCardButton}
-					onClick={updateCurrentCard}
-				>
-					NExt
-				</Button> */}
 				<div className={classes.buttons}>
 					<Button
 						size="small"
