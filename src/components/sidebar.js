@@ -59,6 +59,14 @@ function PermanentDrawerLeft(props) {
     const favoriteDecks = useSelector(state => state.User.favoritedecks)
     const decks = useSelector(state => state.Deck)
     const cards = useSelector(state => state.Cards)
+    let shownDecks = Object.values(favoriteDecks)
+    let displayedDecks = []
+    for (let i = 0; i <= shownDecks.length; i++) {
+        if (decks[shownDecks[i]]) {
+            displayedDecks.push(decks[shownDecks[i]]);
+        }
+    }
+
     let user_deck_count_display;
     console.log(props)
 
@@ -108,7 +116,7 @@ function PermanentDrawerLeft(props) {
                     <ListItem>
                         <FormDialog />
                     </ListItem>
-                    {Object.values(decks).map(deck => (<Link to={`/cards/${deck.id}/study`} className="link"><ListItem button key={deck.id}>
+                    {displayedDecks.map(deck => (<Link to={`/cards/${deck.id}/study`} className="link"><ListItem button key={deck.id}>
                         <ListItemIcon>
                         </ListItemIcon>
                         <ListItemText primary={deck.title} />

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -8,13 +8,16 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import AddIcon from "@material-ui/icons/Add";
-import { newDeck } from '../deck/deckActions'
+import AddRoundedIcon from '@material-ui/icons/AddRounded';
+import { orange, grey } from '@material-ui/core/colors';
+import { createNewCards } from '../reducers/cardManagement'
 
-export default function FormDialog() {
+export default function NewCard(props) {
+    console.log("Props: ", props)
+    const deck_id = props.props
+    const [answer, setAnswer] = useState("")
+    const [question, setQuestion] = useState('')
     const [open, setOpen] = React.useState(false);
-    const [title, setTitle] = useState("")
-    const [description, setDescription] = useState('')
-    const user_id = useSelector(state => state.User.id)
     const dispatch = useDispatch()
 
     const handleClickOpen = () => {
@@ -23,57 +26,60 @@ export default function FormDialog() {
 
     const handleClose = () => {
         setOpen(false);
-    };
 
-    const updateTitle = (e) => {
-        setTitle(e.target.value);
+    };
+    const updateAnswer = (e) => {
+        setAnswer(e.target.value);
 
     }
-    const updateDescription = (e) => {
-        setDescription(e.target.value);
+    const updateQuestion = (e) => {
+        setQuestion(e.target.value);
 
     }
 
     const handleSubmit = async (e) => {
         setOpen(false);
         e.preventDefault();
-        dispatch(newDeck(user_id, title, description));
+        dispatch(createNewCards(deck_id, question, answer));
 
     }
 
+    let iconStyles = {
+        fontSize: '28px',
+        color: grey[50]
+    };
+
     return (
-        <div>
+        <>
             <Button variant="" color="primary" onClick={handleClickOpen}>
-                <AddIcon />
-        Create New Deck
-      </Button>
+                <AddRoundedIcon style={iconStyles} />
+            </Button>
             <Dialog
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="form-dialog-title"
             >
-                <DialogTitle id="form-dialog-title">Create New Deck</DialogTitle>
+                <DialogTitle id="form-dialog-title">Create New Card</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        A deck is a set of flashcards that can be used to study a certain
-                        topic.
-          </DialogContentText>
+
+                    </DialogContentText>
                     <TextField
                         autoFocus
                         margin="dense"
-                        id="title"
-                        label="Deck Title"
+                        id="question"
+                        label="Question"
                         type="string"
                         fullWidth
-                        onChange={updateTitle}
+                        onChange={updateQuestion}
                     />
                     <TextField
                         margin="dense"
-                        id="title"
-                        label="Description"
+                        id="answer"
+                        label="Answer"
                         type="string"
                         fullWidth
-                        onChange={updateDescription}
+                        onChange={updateAnswer}
                     />
                 </DialogContent>
                 <DialogActions>
@@ -85,6 +91,6 @@ export default function FormDialog() {
           </Button>
                 </DialogActions>
             </Dialog>
-        </div>
+        </>
     );
 }
