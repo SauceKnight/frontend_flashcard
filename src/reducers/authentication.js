@@ -1,5 +1,6 @@
 import { baseUrl } from "../config";
 import jwt_decode from "jwt-decode";
+import { CREATE_NEW_DECK } from '../deck/deckActions'
 
 export const SET_TOKEN = "flashnerd/authentication/SET_TOKEN";
 const REMOVE_TOKEN = "flashnerd/authentication/REMOVE_TOKEN";
@@ -125,6 +126,12 @@ export default function reducer(state = {}, action) {
                 ...state,
                 favoritedecks: action.payload.data,
             }
+        case CREATE_NEW_DECK:
+            let favdecks = [...state.favoritedecks, action.payload.fav];
+            return {
+                ...state,
+                favoritedecks: favdecks,
+            };
 
         default:
             return state;
