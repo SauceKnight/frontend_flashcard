@@ -21,9 +21,7 @@ import { Link } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import FormDialog from './newdeck'
 import ShowCards from "./cards";
-
-
-
+import LogoutButton from "./logout"
 
 
 const drawerWidth = 240;
@@ -105,10 +103,7 @@ function PermanentDrawerLeft(props) {
                     <Typography variant="h6" noWrap> {/* deck count goes here */}
                         {user_deck_count_display}
                     </Typography>
-                    {/* 
-                    NOTE: this would be an excellent place to put a sign-in button 
-                    if the user is not signed in, and hide the avatar/username
-                    */}
+                    <LogoutButton />
                 </Box>
 
                 <Divider />
