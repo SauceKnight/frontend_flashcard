@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { login } from "../reducers/authentication";
 import { useSelector, useDispatch } from "react-redux";
+
+import "../index.css";
 
 function LoginPanel(props) {
 	const [email, setEmail] = useState("test5@gmail.com");
@@ -28,10 +30,11 @@ function LoginPanel(props) {
 		return <Redirect to="/" />;
 	}
 	return (
-		<div>
+		<div className="login_background">
 			<div>
-				<form className="" onSubmit={handleSubmit}>
-					<h4>We are FLASHNERD</h4>
+				<div className="login-image"></div>
+				<form className="login-form" onSubmit={handleSubmit}>
+					<h2>FLASHNERD</h2>
 					<p>
 						Welcome back! Log in to your account
 						<br></br>
@@ -39,7 +42,7 @@ function LoginPanel(props) {
 					</p>
 
 					<input
-						className=""
+						className="in-form-field"
 						type="text"
 						name="email"
 						placeholder="Email"
@@ -47,7 +50,7 @@ function LoginPanel(props) {
 						onChange={updateEmail}
 					/>
 					<input
-						className=""
+						className="in-form-field"
 						type="text"
 						name="username"
 						placeholder="User Name"
@@ -56,7 +59,7 @@ function LoginPanel(props) {
 					/>
 
 					<input
-						className=""
+						className="in-form-field"
 						type="password"
 						name="password"
 						placeholder="Password"
@@ -64,16 +67,18 @@ function LoginPanel(props) {
 						onChange={updatePassword}
 					/>
 
-					<button type="submit">LOGIN</button>
-					{/* <h3>
-                            You need an account?{" "}
-                            <span>
-                                <Link className="sign-up" to="/signup">
-                                    {" "}
-									SIGNUP
-								</Link>
-                            </span>
-                        </h3> */}
+					<button type="submit" className="login-button">
+						Login
+					</button>
+					<h3>
+						No account?{" "}
+						<span>
+							<Link className="sign-up" to="/signup">
+								{" "}
+								Create one
+							</Link>
+						</span>
+					</h3>
 				</form>
 			</div>
 		</div>

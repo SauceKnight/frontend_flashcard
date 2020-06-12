@@ -19,9 +19,43 @@ export const getAllCards = (id) => async (dispatch) => {
 	const response = await fetch(`http://localhost:5000/cards/${id}`);
 	if (response.ok) {
 		const res = await response.json();
-		console.log("TEST FOR RES", res.data);
+
 		dispatch(fetchAllCards(res.data));
 	}
+};
+
+export const getAllCardsForQuiz = (id) => async (dispatch) => {
+	const response = await fetch(`http://localhost:5000/cards/${id}`);
+	if (response.ok) {
+		const res = await response.json();
+		const resData = Object.values(res.data);
+		let i = 0;
+		let count = 0;
+		for (i = 0; i < resData.length; i++) {
+			count++;
+		}
+		console.log("COunt", count);
+		return count;
+		dispatch(fetchAllCards(res.data));
+	}
+};
+export const get = (dogs, prefPet) => {
+	dogs.forEach((dog) => {
+		let count = 0;
+		for (let key in prefPet) {
+			if (
+				prefPet[key] === dog[key] ||
+				(key === "breedId" && prefPet.breedId === null)
+			) {
+				count++;
+			}
+		}
+		dog.matchPercentage = count / 6;
+	});
+
+	const bestMatches = dogs.filter((dog) => {
+		return dog.matchPercentage > 0.65;
+	});
 };
 ////FETCH SINGLER CARD
 export const getOneCard = (deckId, cardId) => async (dispatch) => {
@@ -34,9 +68,7 @@ export const getOneCard = (deckId, cardId) => async (dispatch) => {
 	}
 };
 
-const initialState = {
-
-};
+const initialState = {};
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case FETCH_ALL_CARDS:
