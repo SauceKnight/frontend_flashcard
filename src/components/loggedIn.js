@@ -5,6 +5,7 @@ import { Route, Switch } from "react-router-dom";
 import DeckHeader from "./deckHeader";
 import CardViewer from "./cardViewer";
 import SearchedDeckResults from "./SearchedDecksResult";
+
 function LoggedIn() {
 	return (
 		// TODO: render sidebar here from components/sidebar (?)
