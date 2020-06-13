@@ -1,132 +1,216 @@
-/* TODO Add site wide styles */
-
-/* Sidebar Styles: */
-
-/* .profile_sidebar {
-    display: flex;
-    justify-content: center;
+/* html,
+body {
+	height: 100vh;
+	width: 100vw;
+	margin: 0 0;
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-start;
+	background: #f3f2f2;
+	background-size: cover;
 } */
 
 /* cardViewer styles: */
 
 .CardViewer {
-  font-family: sans-serif;
-  text-align: center;
+	font-family: sans-serif;
+	text-align: center;
 }
 
-.cardViewer_scene {
-  /* width: 600px;
-  height: 300px; */
-  /* border: 1px solid #ccc;*/
-  /* margin: 40px 0; */
-  perspective: 600px;
+.button-card-button {
+	display: flex;
+	justify-content: center;
+	align-items: row;
+	margin-left: 239px;
+}
+
+.scene {
+	width: 500px;
+	height: 300px;
+	border: 1px solid #ccc;
+	perspective: 600px;
 }
 
 .card {
-  position: relative;
-  /* width: 500px;
-  height: 500px; */
-  cursor: pointer;
-  transform-style: preserve-3d;
-  transform-origin: center right;
-  transition: transform 1s;
+	width: 100%;
+	height: 100%;
+	transition: transform 0.4s;
+	transform-style: preserve-3d;
+	cursor: pointer;
+	position: relative;
 }
 
 .card.is-flipped {
-  transform: translateX(-100%) rotateY(-180deg);
+	transform: rotateX(180deg);
 }
 
 .card__face {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  line-height: 260px;
-  color: white;
-  text-align: center;
-  font-weight: bold;
-  font-size: 40px;
-  backface-visibility: hidden;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	line-height: 260px;
+	color: white;
+	text-align: center;
+	font-weight: bold;
+	font-size: 40px;
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
 }
-
-/* .card__face--front {
-
-} */
 
 .card__face--back {
-  /* background: blue; */
-  transform: rotateY(180deg);
+	transform: rotateX(180deg);
 }
-
-/* * STYLING THE CARD COMPONENT */
-/* THE MAINCONTAINER HOLDS EVERYTHING */
-/* .maincontainer {
-	position: absolute;
-	width: 250px;
-	height: 320px;
-	background: none;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+.MuiCardContent-root {
+	height: 65%;
+	background-image: url("https://cdn.stocksnap.io/img-thumbs/960w/nature-landscape_LGIPYHW435.jpg");
 }
-
-/* THE CARD HOLDS THE FRONT AND BACK FACES */
-/* .thecard {
-	position: relative;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	border-radius: 10px;
-	transform-style: preserve-3d;
-	transition: all 2s ease; */
-
-/* THE PSUEDO CLASS CONTROLS THE FLIP ON MOUSEOVER AND MOUSEOUT */
-/* .thecard:hover {
-	transform: rotateY(180deg);
+/* .MuiPaper-elevation1 {
+	background-color: #6d3f07;
 } */
 
-/* THE FRONT FACE OF THE CARD, WHICH SHOWS BY DEFAULT */
-/* .thefront {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	border-radius: 10px;
-	backface-visibility: hidden;
-	overflow: hidden;
-	background: #ffc728;
-	color: #000;
-} */
-
-/* THE BACK FACE OF THE CARD, WHICH SHOWS ON MOUSEOVER */
-/* .theback {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	border-radius: 10px;
-	backface-visibility: hidden;
-	overflow: hidden;
-	background: #fafafa;
-	color: #333;
-	text-align: center;
-	transform: rotateY(180deg);
-} */
-
-.makeStyles-paper-2 {
+/* STYLE THE CARDS */
+/* .makeStyles-paper-2 {
 	height: 60px;
 	padding: 20px;
 	margin: 30px;
 	width: 70%;
-}
+} */
 
-.center{
-    text-align: center;
+.center {
+	text-align: center;
 }
 
 .link {
-    color: black;
-    text-decoration: none;
-  }
+	color: black;
+	text-decoration: none;
+}
+
+/* STYLE LOGIN FORM */
+
+/* Styling the form */
+.login_background,
+.signup_background {
+	width: 100vw;
+	height: 100vh;
+	background-image: url("https://cdn.stocksnap.io/img-thumbs/960w/dark-sky_SCWHKCL0FO.jpg");
+}
+.login-form,
+.sign-up-form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	box-sizing: border-box;
+	flex-wrap: wrap;
+	height: 80%;
+	width: 40%;
+	border-radius: 20px;
+	align-items: center;
+	background-color: #eeeeee;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	overflow: hidden;
+	border: 1px solid #9e9e9e;
+
+	background-image: url("https://cdn.stocksnap.io/img-thumbs/960w/road-path_H966MN75RM.jpg");
+	opacity: 0.8;
+
+	background-repeat: no-repeat;
+
+	background-size: cover;
+}
+.sign-up-form {
+	/* height: 580px; */
+	background-image: url("https://cdn.stocksnap.io/img-thumbs/960w/pathway-alley_UG1PU9ECIC.jpg");
+}
+.sign-up-form .in-form-field {
+	margin: 10px;
+}
+
+.login-form h2 {
+	color: #fdd835;
+	text-shadow: 1px 1px white;
+	font-size: 35px;
+	font-weight: 700;
+}
+.login-form p,
+h3,
+.sign-up-form p {
+	font-size: 20px;
+	text-align: center;
+	color: whitesmoke;
+	font-weight: 500;
+	margin-bottom: 20px;
+}
+
+.sign-up-form p {
+	margin: 20px 0;
+}
+.in-form-field {
+	border-radius: 15px;
+	color: #616161;
+	border: 1px solid #ef6c00;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	padding: 7px 25px;
+	background-color: #e0e0e0;
+	width: 240px;
+	height: 30px;
+	margin-bottom: 20px;
+	transition: 0.25s;
+}
+.login-form input:focus,
+.sign-up-form input:focus {
+	background-color: #ffe0b2;
+	color: #616161;
+	font-weight: 500;
+	width: 280px;
+	border: 2px solid #ffca28;
+}
+.sign-up {
+	color: #e65100;
+	font-size: 20px;
+	font-weight: 500;
+	text-decoration: none;
+	text-shadow: 0.5px 0.5px white;
+}
+
+/* STYLING BUTTON */
+.login-button,
+.signup-button,
+.logout-button {
+	width: 280px;
+	height: 40px;
+	border-radius: 20px;
+	color: #e0e0e0;
+	background-color: #fb8c00;
+	font-size: 18px;
+	font-weight: 400;
+	text-decoration: none;
+	text-shadow: 0.5px 0.5px white;
+	border: 1px solid #ef6c00;
+}
+
+.login-button:hover,
+.signup-button:hover,
+.logout-button {
+	border-radius: 20px;
+	color: #616161;
+	background-color: #ffe0b2;
+	width: 300px;
+}
+.signup-button {
+	margin-top: 10px;
+}
+
+.result {
+	margin-left: 500px;
+}
+
+.test {
+	font-size: 50px;
+	color: red;
+}
