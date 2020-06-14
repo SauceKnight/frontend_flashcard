@@ -18,7 +18,7 @@ function App() {
 		// TODO: render sidebar here from components/sidebar (?)
 		<div>
 			<Switch>
-				<Route exact path="/search" component={SearchDecks} />
+				{/* <Route exact path="/search" component={SearchDecks} /> */}
 				{/* <Route exact path="/cards/:deckId?/:cardId?" component={ShowOneCard} /> */}
 				{/* <Route exact path="/cards/:id" component={ShowCards} /> */}
 				{/* <Route exact path="/profile/:id" component={Profile} /> */}

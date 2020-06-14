@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { getDeckByTitle } from "../deck/deckActions";
 import { useSelector, useDispatch } from "react-redux";
 import { DebounceInput } from "react-debounce-input";
+import IconButton from "@material-ui/core/IconButton";
+import SearchIcon from "@material-ui/icons/Search";
 
 export default function SearchDecks(props) {
 	const foundDecks = useSelector((state) => state.Deck.foundDecks);
@@ -13,26 +15,21 @@ export default function SearchDecks(props) {
 	// useEffect(() => {}, [searchContent]);
 
 	const updateSearch = (e) => {
-		// setSearchContent(e.target.value);
-		dispatch(getDeckByTitle(e.target.value));
+		//e.preventDefault();
+		setSearchContent(e.target.value);
+		// dispatch(getDeckByTitle(e.target.value));
 	};
 
-	if (!foundDecks) {
-		return null;
-	}
-
 	return (
-		<div>
-			<ul>
-				{foundDecks.map((foundDeck) => (
-					<li>{foundDeck.title}</li>
-				))}
-			</ul>
+		<>
+			<Link to={`/search/${searchContent}`}>
+				<SearchIcon />
+			</Link>
 			<DebounceInput
 				minLength={2}
 				debounceTimeout={300}
 				onChange={updateSearch}
 			/>
-		</div>
+		</>
 	);
 }

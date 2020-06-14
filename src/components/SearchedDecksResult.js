@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-// import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { getAllCards } from "../reducers/cardManagement";
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
+import { getDeckByTitle } from "../deck/deckActions";
 // import "../index.css";
 
 const drawerWidth = 240;
@@ -27,33 +28,29 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default function ShowCards(props) {
+export default function SearchedDeckResults(props) {
 	const classes = useStyles();
-	const cards = useSelector((state) => state.Cards);
-	const { id } = props.match.params;
 	const dispatch = useDispatch();
+	const foundDecks = useSelector((state) => state.Deck.foundDecks);
+	const { decktitle } = props.match.params;
 	useEffect(() => {
-		dispatch(getAllCards(id));
-	}, [id]);
+		dispatch(getDeckByTitle(decktitle));
+	}, [decktitle]);
 
-	if (!cards) {
+	if (!foundDecks) {
 		return null;
 	}
 
-	function FormRow() {
+	function Results() {
 		return (
 			<React.Fragment>
-				{Object.values(cards).map((card) => (
-					<>
-						<Grid item xs={6}>
-							<Paper className={classes.paper}>{card.question}</Paper>
-						</Grid>
-
-						<Grid item xs={6}>
-							<Paper className={classes.paper}>{card.answer}</Paper>
-						</Grid>
-					</>
-				))}
+				<ul>
+					{foundDecks.map((foundDeck) => (
+						<Link to={`/cards/${foundDeck.id}/study`}>
+							<li>{foundDeck.title}</li>
+						</Link>
+					))}
+				</ul>
 			</React.Fragment>
 		);
 	}
@@ -61,15 +58,8 @@ export default function ShowCards(props) {
 	return (
 		<div className={classes.root}>
 			<Grid container spacing={1}>
-				<Grid item xs={6}>
-					<h3 className={classes.study}>Question</h3>
-				</Grid>
-
-				<Grid item xs={6}>
-					<h3 className={classes.study}>Answer</h3>
-				</Grid>
 				<Grid container item xs={24} spacing={3}>
-					<FormRow />
+					<Results />
 				</Grid>
 			</Grid>
 		</div>

@@ -27,12 +27,30 @@ export const getAllCards = (id) => async (dispatch) => {
 	const response = await fetch(`http://localhost:5000/cards/${id}`);
 	if (response.ok) {
 		const res = await response.json();
-		console.log("TEST FOR RES", res.data);
+
 		dispatch(fetchAllCards(res.data));
 	}
 };
 
-export const createNewCards = (deck_id, question, answer) => async (dispatch) => {
+export const getAllCardsForQuiz = (id) => async (dispatch) => {
+	const response = await fetch(`http://localhost:5000/cards/${id}`);
+	if (response.ok) {
+		const res = await response.json();
+		const resData = Object.values(res.data);
+		let i = 0;
+		let count = 0;
+		for (i = 0; i < resData.length; i++) {
+			count++;
+		}
+		console.log("COunt", count);
+		return count;
+		dispatch(fetchAllCards(res.data));
+	}
+};
+
+export const createNewCards = (deck_id, question, answer) => async (
+	dispatch
+) => {
 	const response = await fetch(`http://localhost:5000/cards/${deck_id}`, {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
@@ -45,7 +63,6 @@ export const createNewCards = (deck_id, question, answer) => async (dispatch) =>
 	}
 };
 
-
 ////FETCH SINGLER CARD
 export const getOneCard = (deckId, cardId) => async (dispatch) => {
 	const response = await fetch(
@@ -57,9 +74,7 @@ export const getOneCard = (deckId, cardId) => async (dispatch) => {
 	}
 };
 
-const initialState = {
-
-};
+const initialState = {};
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case FETCH_ALL_CARDS:
