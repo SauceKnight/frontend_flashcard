@@ -102,7 +102,6 @@ export const signup = (email, username, password) => async (dispatch) => {
 export default function reducer(state = {}, action) {
     switch (action.type) {
         case SET_TOKEN:
-            debugger
             return {
                 ...state,
                 id: action.payload.id,
@@ -115,9 +114,9 @@ export default function reducer(state = {}, action) {
                 favoritedecks: action.payload.favoritedecks,
             };
         case REMOVE_TOKEN:
-            const newState = { ...state };
+            const newState = { };
             console.log(newState);
-            delete newState.token;
+            // delete newState.token;
             return newState;
 
         case SET_USER:
