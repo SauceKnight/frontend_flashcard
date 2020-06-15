@@ -5,15 +5,19 @@ import { Route, Switch } from "react-router-dom";
 import DeckHeader from "./deckHeader";
 import CardViewer from "./cardViewer";
 import SearchedDeckResults from "./SearchedDecksResult";
+import SearchDeckHeader from './headerSearch'
+import Welcome from './Welcome'
 
 function LoggedIn() {
 	return (
 		// TODO: render sidebar here from components/sidebar (?)
 		<div>
 			<Route path="/" component={PermanentLeftDrawer} />
+			<Route path="/search" component={SearchDeckHeader} />
 			<Route path="/cards/:id" component={DeckHeader} />
 
 			<Switch>
+				<Route exact path="/" component={Welcome} />
 				<Route
 					exact
 					path="/search/:decktitle"

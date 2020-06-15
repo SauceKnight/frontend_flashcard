@@ -9,6 +9,15 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import AddIcon from "@material-ui/icons/Add";
 import { newDeck } from "../deck/deckActions";
+import { orange, grey } from "@material-ui/core/colors";
+import { makeStyles } from "@material-ui/core/styles";
+
+
+const useStyles = makeStyles((theme) => ({
+	text: {
+		color: grey[50],
+	},
+}));
 
 export default function FormDialog() {
 	const [open, setOpen] = React.useState(false);
@@ -16,6 +25,7 @@ export default function FormDialog() {
 	const [description, setDescription] = useState("");
 	const user_id = useSelector((state) => state.User.id);
 	const dispatch = useDispatch();
+	const classes = useStyles();
 
 	const handleClickOpen = () => {
 		setOpen(true);
@@ -41,8 +51,8 @@ export default function FormDialog() {
 
 	return (
 		<div>
-			<Button variant="" color="primary" onClick={handleClickOpen}>
-				<AddIcon />
+			<Button variant="" className={classes.text} onClick={handleClickOpen}>
+				<AddIcon color={grey[50]} />
 				Create New Deck
 			</Button>
 			<Dialog

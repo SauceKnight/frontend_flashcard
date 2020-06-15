@@ -1,4 +1,7 @@
-import { FAVORITE_DECK, FETCH_USER_DECKS, FETCH_CURRENT_DECK, FETCH_SEARCH_DECKS, SEARCH_DECKS_BY_TITLE, CREATE_NEW_DECK } from "./deckActions";
+import {
+    EDIT_DECK, DELETE_DECK, FAVORITE_DECK, FETCH_USER_DECKS,
+    FETCH_CURRENT_DECK, FETCH_SEARCH_DECKS, SEARCH_DECKS_BY_TITLE, CREATE_NEW_DECK
+} from "./deckActions";
 
 import { SET_TOKEN } from "../reducers/authentication";
 
@@ -41,6 +44,15 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 ...action.payload.decks,
+            };
+        case DELETE_DECK:
+            return {
+                ...action.payload.decks
+            };
+        case EDIT_DECK:
+            return {
+                ...state,
+                ...action.payload
             };
 
         default:

@@ -14,18 +14,21 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardMedia from "@material-ui/core/CardMedia";
+import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
+import SkipNextIcon from '@material-ui/icons/SkipNext';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
 		minWidth: 275,
-		marginTop: "100px",
-		marginLeft: "480px",
+		// marginTop: "100px",
+		marginLeft: "80px",
 		width: "700px",
 		height: "400px",
 		borderRadius: "20px",
 		cursor: "pointer",
-		backgroundColor: "#ffb74d",
+		backgroundColor: "#FFFFFF",
 		background: theme.gradientBackground,
+
 	},
 
 	pos: {
@@ -35,26 +38,47 @@ const useStyles = makeStyles((theme) => ({
 		marginTop: "20px",
 		marginBottom: "20px",
 		fontSize: "20px",
-		color: "white",
+		color: "black",
 	},
 	bodyText: {
 		fontSize: "30px",
-		color: "orange",
+		// color: "orange",
 	},
 	editCardButton: {
 		borderRadius: "20px",
-		color: "#616161",
-		backgroundColor: "#ffe0b2",
+		color: "#FFFFFF",
+		backgroundColor: "#5680E9",
 		width: "120px",
-		marginTop: "30px",
+		marginTop: "60px",
 		// marginLeft: "30px",
-		marginLeft: 30,
+		marginLeft: 180,
+		"&:hover": {
+			backgroundColor: "#5680E9",
+		}
 	},
 	buttons: {
-		marginLeft: "480px",
+		// display: "flex",
+		// flexDirection: "row",
+		// justifyContent: "space-evenly"
+	},
+	quizView: {
+		display: "flex",
+		flexDirection: "row",
+		// alignItems: "space-evenly",
+		justifyContent: "space-evenly",
+		marginLeft: 160,
+		marginTop: 200
+	},
+	next: {
+		display: "flex",
+		flexDirection: "row",
+		// alignItems: "space-evenly",
+		justifyContent: "flex-start",
+		alignItems: "flex-start"
+
 	},
 	colorStyle: {
-		backgroundColor: "linear-gradient(to top, #ffb74d, transparent)",
+		// backgroundColor: "linear-gradient(to top, #ffb74d, transparent)",
 	},
 }));
 
@@ -102,75 +126,78 @@ export default function CardViewer(props) {
 
 	return (
 		<>
-			<div className="cardViewer_scene scene--card">
-				<div className="card" onClick={(event) => toggler(event)}>
-					<div>
-						<div className="card__face card__face--front">
-							<Card className={classes.root}>
-								<CardContent>
-									<Typography
-										className={classes.header}
-										variant="h5"
-										component="h2"
-									>
-										Your today's flashcard
-									</Typography>
-									<Typography
-										variant="body2"
-										className={classes.bodyText}
-										component="p"
-									>
-										{newCards[currentCard].question}
-										<br />
-									</Typography>
-								</CardContent>
-							</Card>
-						</div>
-						<div className="card__face card__face--back">
-							<Card className={classes.root}>
-								<CardContent>
-									<Typography
-										className={classes.header}
-										variant="h5"
-										component="h2"
-									>
-										Answer
-									</Typography>
-									<Typography
-										variant="body2"
-										className={classes.bodyText}
-										component="p"
-									>
-										{newCards[currentCard].answer}
-										<br />
-									</Typography>
-								</CardContent>
-								<div className="cardViewer_buttons"></div>
-							</Card>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div>
+			<div className={classes.quizView}>
 				<div className={classes.buttons}>
 					<Button
 						size="small"
 						className={classes.editCardButton}
 						onClick={updatePreviousCurrentCard}
 					>
+						<SkipPreviousIcon />
 						Previous
 					</Button>
-					<Button size="small" className={classes.editCardButton}>
-						Completed
-					</Button>
-					<Button
-						size="small"
-						className={classes.editCardButton}
-						onClick={updateNextCurrentCard}
-					>
-						Next
-					</Button>
+				</div>
+				<div  >
+					<div className="card" onClick={(event) => toggler(event)}>
+						<div >
+							<div className="card__face card__face--front">
+								<Card className={classes.root}>
+									<CardContent>
+										<Typography
+											className={classes.header}
+											variant="h5"
+											component="h2"
+										>
+											Question
+									</Typography>
+										<Typography
+											variant="body2"
+											className={classes.bodyText}
+											component="p"
+										>
+											{newCards[currentCard].question}
+											<br />
+										</Typography>
+									</CardContent>
+								</Card>
+							</div>
+							<div className="card__face card__face--back">
+								<Card className={classes.root}>
+									<CardContent>
+										<Typography
+											className={classes.header}
+											variant="h5"
+											component="h2"
+										>
+											Answer
+									</Typography>
+										<Typography
+											variant="body2"
+											className={classes.bodyText}
+											component="p"
+										>
+											{newCards[currentCard].answer}
+											<br />
+										</Typography>
+									</CardContent>
+									<div className="cardViewer_buttons"></div>
+								</Card>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div className={classes.next}>
+					<div className={classes.buttons}>
+						<Button
+							size="small"
+							className={classes.editCardButton}
+							onClick={updateNextCurrentCard}
+						>
+
+							Next
+						<SkipNextIcon />
+						</Button>
+					</div>
 				</div>
 			</div>
 		</>
