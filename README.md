@@ -1,4 +1,4 @@
-FlashNerd 
+**FlashNerd** 
 
 This is an application for creating virtual flash cards to aid in studying. Users may log in, create decks, create cards for those decks, view the cards one-by-one, edit their cards, and mark cards or whole decks as complete.
 
@@ -14,18 +14,21 @@ This is an application for creating virtual flash cards to aid in studying. User
 
 [Our Database Schema can be found here](https://github.com/SauceKnight/frontend_flashcard/blob/master/documentation/schema.png)
 
-(Link to our frontend routes document goes here)
+[Our document detailing frontend and backend routes can be found here](https://github.com/SauceKnight/frontend_flashcard/blob/master/documentation/routes.md)
 
 (Link to our Redux store tree document goes here)
 
-Quick-start installation instructions if you are not running our hosted version:
-front-end:
-nvm use 10.16
-npm install
-npm start
+Quick-start installation instructions if you are not running our hosted version:  
 
-back-end: 
-pipenv install
-pipenv run flask run
+    front-end:    
+    
+    nvm use 10.16    
+    npm install    
+    npm start    
+
+    back-end:     
+    
+    pipenv install    
+    pipenv run flask run    
 
 (Technologies used go here)
