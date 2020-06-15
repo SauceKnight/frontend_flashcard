@@ -18,10 +18,10 @@ body {
 }
 
 .button-card-button {
-	display: flex;
+	/* display: flex;
 	justify-content: center;
 	align-items: row;
-	margin-left: 239px;
+	margin-left: 239px; */
 }
 
 .scene {
@@ -37,7 +37,7 @@ body {
 	transition: transform 0.4s;
 	transform-style: preserve-3d;
 	cursor: pointer;
-	position: relative;
+	/* position: relative; */
 }
 
 .card.is-flipped {
@@ -45,7 +45,7 @@ body {
 }
 
 .card__face {
-	position: absolute;
+	/* position: absolute; */
 	width: 100%;
 	height: 100%;
 	line-height: 260px;
@@ -62,7 +62,7 @@ body {
 }
 .MuiCardContent-root {
 	height: 65%;
-	background-image: url("https://cdn.stocksnap.io/img-thumbs/960w/nature-landscape_LGIPYHW435.jpg");
+
 }
 /* .MuiPaper-elevation1 {
 	background-color: #6d3f07;
@@ -92,7 +92,8 @@ body {
 .signup_background {
 	width: 100vw;
 	height: 100vh;
-	background-image: url("https://cdn.stocksnap.io/img-thumbs/960w/dark-sky_SCWHKCL0FO.jpg");
+	background-image: url("https://images.pexels.com/photos/1438072/pexels-photo-1438072.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+	background-size: cover;
 }
 .login-form,
 .sign-up-form {
@@ -113,7 +114,7 @@ body {
 	overflow: hidden;
 	border: 1px solid #9e9e9e;
 
-	background-image: url("https://cdn.stocksnap.io/img-thumbs/960w/road-path_H966MN75RM.jpg");
+	/* background-image: url("https://images.pexels.com/photos/1438072/pexels-photo-1438072.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"); */
 	opacity: 0.8;
 
 	background-repeat: no-repeat;
@@ -208,9 +209,4 @@ h3,
 
 .result {
 	margin-left: 500px;
-}
-
-.test {
-	font-size: 50px;
-	color: red;
 }

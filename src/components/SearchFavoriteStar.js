@@ -14,7 +14,7 @@ import { createNewCards } from '../reducers/cardManagement'
 import { addFavorite, deleteFavorite } from '../deck/deckActions'
 import StarIcon from '@material-ui/icons/Star';
 
-export default function FavoriteStar(props) {
+export default function SearchFavoriteStar(props) {
     // console.log("Props: ", props.props)
     const deck_id = props.props
     const dispatch = useDispatch()
@@ -43,7 +43,7 @@ export default function FavoriteStar(props) {
         else {
             iconStyles = {
                 fontSize: '28px',
-                color: grey[50]
+                color: grey[900],
             }
 
         }

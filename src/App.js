@@ -10,10 +10,22 @@ import ShowCards from "./components/cards";
 import ShowOneCard from "./components/singleCard";
 import PermanentLeftDrawer from "./components/sidebar";
 import SearchDecks from "./components/searchDeck";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import Cards from "./components/cards";
+import { useHistory } from 'react-router-dom'
+
+const PrivateRoute = ({ component: Component, ...rest }) => (
+	<Route {...rest} render={(props) => (
+		localStorage.getItem("flashnerd/authentication/TOKEN")
+			? <Component {...props} />
+			: <Redirect to='/login' />
+	)} />
+)
 
 function App() {
+
+
+
 	return (
 		// TODO: render sidebar here from components/sidebar (?)
 		<div>
@@ -25,10 +37,12 @@ function App() {
 				<Route exact path="/login" component={LoginPanel} />
 				{/* <ListofDecks /> */}
 				<Route exact path="/signup" component={SignupPanel} />
-				<Route path="/" component={LoggedIn} />
+				<PrivateRoute path="/" component={LoggedIn} />
 			</Switch>
 		</div>
 	);
+
+
 }
 
 export default App;

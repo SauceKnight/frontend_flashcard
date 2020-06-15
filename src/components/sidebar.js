@@ -25,12 +25,17 @@ import ShowCards from "./cards";
 import IconButton from "@material-ui/core/IconButton";
 import SearchIcon from "@material-ui/icons/Search";
 import SearchDecks from "./searchDeck";
+import { purple, grey } from "@material-ui/core/colors";
+import GearButton from "./gearButton"
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
 	root: {
 		display: "flex",
+	},
+	text: {
+		color: grey[50],
 	},
 	appBar: {
 		width: `calc(100% - ${drawerWidth}px)`,
@@ -42,7 +47,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 	drawerPaper: {
 		width: drawerWidth,
-		backgroundColor: "#f57c00",
+		backgroundColor: "#2F4454",
+	},
+	purple: {
+		backgroundColor: "#5680E9"
 	},
 	// necessary for content to be below app bar
 	toolbar: theme.mixins.toolbar,
@@ -88,7 +96,7 @@ function PermanentDrawerLeft(props) {
 	const user_initials = username
 		.split(/\s/)
 		.reduce((response, word) => (response += word.slice(0, 1)), "")
-		.slice(0, 2);
+		.slice(0, 2).toUpperCase();
 
 	return (
 		<div className={classes.root}>
@@ -101,6 +109,7 @@ function PermanentDrawerLeft(props) {
 				}}
 				anchor="left"
 			>
+				<GearButton className={classes.settings} />
 				<Box
 					component="div"
 					m={2}
@@ -111,12 +120,12 @@ function PermanentDrawerLeft(props) {
 					{/* Div for avatar, username, profile stuff: */}
 					{/* <Avatar alt="BreakBot" src="https://i.imgur.com/byozd3F.png" /> */}
 					<Avatar className={classes.purple}>{user_initials}</Avatar>
-					<Typography variant="h5" noWrap>
+					<Typography variant="h5" noWrap className={classes.text}>
 						{" "}
 						{/* Username goes here */}
 						{displayName}
 					</Typography>
-					<Typography variant="h6" noWrap>
+					<Typography variant="h6" noWrap className={classes.text}>
 						{" "}
 						{/* deck count goes here */}
 						{user_deck_count_display}
@@ -125,24 +134,24 @@ function PermanentDrawerLeft(props) {
                     NOTE: this would be an excellent place to put a sign-in button 
                     if the user is not signed in, and hide the avatar/username
                     */}
+
 				</Box>
 
 				<Divider />
 				<SearchDecks />
 				<List>
 					<ListItem>
-						<FormDialog />
+						<FormDialog className={classes.text} />
 					</ListItem>
 					{displayedDecks.map((deck) => (
 						<Link to={`/cards/${deck.id}/study`} className="link">
 							<ListItem button key={deck.id}>
 								<ListItemIcon></ListItemIcon>
-								<ListItemText primary={deck.title} />
+								<ListItemText primary={deck.title} className={classes.text} />
 							</ListItem>
 						</Link>
 					))}
 				</List>
-				<Divider />
 			</Drawer>
 			<main className={classes.content}>
 				<div className={classes.toolbar} />

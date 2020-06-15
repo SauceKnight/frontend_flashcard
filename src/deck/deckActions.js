@@ -4,7 +4,9 @@ export const CREATE_NEW_DECK = "CREATE_NEW_DECK";
 export const FETCH_USER_DECKS = "FETCH_USER_DECKS";
 export const FETCH_CURRENT_DECK = "FETCH_CURRENT_DECK"
 export const FAVORITE_DECK = "FAVORITE_DECK"
-export const DELETE_FAVORITE_DECK = "DELETE_FAVORITE_DECK"
+export const DELETE_FAVORITE_DECK = "DELETE_FAVORITE_DECK";
+export const DELETE_DECK = "DELETE_DECK";
+export const EDIT_DECK = "EDIT_DECK";
 
 export const fetchSearchDecks = (decks) => {
     return {
@@ -39,6 +41,11 @@ export const createDeck = (payload) => ({
     payload,
 });
 
+export const deleteDeck = (payload) => ({
+    type: DELETE_DECK,
+    payload,
+});
+
 export const favoriteNewDeck = (payload) => ({
     type: FAVORITE_DECK,
     payload,
@@ -46,6 +53,11 @@ export const favoriteNewDeck = (payload) => ({
 
 export const deleteFavDeck = (payload) => ({
     type: DELETE_FAVORITE_DECK,
+    payload,
+});
+
+export const editDeck = (payload) => ({
+    type: EDIT_DECK,
     payload,
 });
 
@@ -115,10 +127,37 @@ export const deleteFavorite = (user_id, deck_id) => async (dispatch) => {
     }
 };
 
+export const deleteSpecificDeck = (user_id, deck_id) => async (dispatch) => {
+    const response = await fetch(`http://localhost:5000/user/${user_id}/${deck_id}/delete`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ user_id, deck_id }),
+    });
+    if (response.ok) {
+        const res = await response.json();
+        console.log(res)
+        dispatch(deleteDeck(res));
+    }
+};
+
 export const loggedInDecks = (user_id) => async (dispatch) => {
     const response = await fetch(`http://localhost:5000/user/${user_id}/decks`);
     if (response.ok) {
         const res = await response.json();
         dispatch(fetchUserDecks(res));
+    }
+};
+
+export const EditCurrentDeck = (user_id, deckid, title, description) => async (
+    dispatch
+) => {
+    const response = await fetch(`http://localhost:5000/user/${user_id}/deck/${deckid}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title, description }),
+    });
+    if (response.ok) {
+        const res = await response.json();
+        dispatch(editDeck(res.data));
     }
 };

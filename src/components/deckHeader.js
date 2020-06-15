@@ -26,6 +26,10 @@ import { orange, grey } from "@material-ui/core/colors";
 import NewCard from "./newcard";
 import FavoriteStar from "./FavoriteStar";
 import StarIcon from "@material-ui/icons/Star";
+import CircularStatic from './progressbar'
+// import DeleteIcon from '@material-ui/icons/Delete';
+import DeleteDeck from './DeleteDeck'
+import EditDeck from './EditDeck'
 
 const drawerWidth = 240;
 
@@ -37,17 +41,17 @@ const useStyles = makeStyles((theme) => ({
 		width: `calc(100% - ${drawerWidth}px)`,
 		marginLeft: drawerWidth,
 		textAlign: "center",
+		backgroundColor: "#5680E9"
 	},
 	drawer: {
 		width: drawerWidth,
 		flexShrink: 0,
 	},
-	drawerPaper: {
-		width: drawerWidth,
-		backgroundColor: "#f57c00",
-	},
 	// necessary for content to be below app bar
 	toolbar: theme.mixins.toolbar,
+	mode: {
+		color: "white"
+	},
 	content: {
 		flexGrow: 1,
 		backgroundColor: theme.palette.background.default,
@@ -79,22 +83,23 @@ function DeckHeader(props) {
 					{console.log(cards)}
 					<div>
 						<h1>{decks[id].title}</h1>
+						<p>{decks[id].description}</p>
 					</div>
 					<div>
 						<Link to={`/cards/${id}/quiz`} className="link">
-							<Button variant="" color="primary">
-								<AddIcon style={{ color: orange[300] }} />
+							<Button className={classes.mode} variant="" color="primary">
 								Quiz
 							</Button>
 						</Link>
 						<Link to={`/cards/${id}/study`} className="link">
-							<Button variant="" color="primary">
-								<AddIcon style={{ color: orange[300] }} />
+							<Button className={classes.mode} variant="" color="primary">
 								Study
 							</Button>
 						</Link>
 						<NewCard props={id} />
 						<FavoriteStar props={id} />
+						<DeleteDeck props={id} />
+						<EditDeck props={id} />
 					</div>
 				</AppBar>
 			</div>

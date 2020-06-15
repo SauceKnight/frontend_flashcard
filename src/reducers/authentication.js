@@ -1,6 +1,6 @@
 import { baseUrl } from "../config";
 import jwt_decode from "jwt-decode";
-import { DELETE_FAVORITE_DECK, CREATE_NEW_DECK, FETCH_USER_DECKS, FAVORITE_DECK } from '../deck/deckActions'
+import { DELETE_DECK, DELETE_FAVORITE_DECK, CREATE_NEW_DECK, FETCH_USER_DECKS, FAVORITE_DECK } from '../deck/deckActions'
 
 export const SET_TOKEN = "flashnerd/authentication/SET_TOKEN";
 const REMOVE_TOKEN = "flashnerd/authentication/REMOVE_TOKEN";
@@ -102,7 +102,6 @@ export const signup = (email, username, password) => async (dispatch) => {
 export default function reducer(state = {}, action) {
     switch (action.type) {
         case SET_TOKEN:
-            debugger
             return {
                 ...state,
                 id: action.payload.id,
@@ -115,8 +114,7 @@ export default function reducer(state = {}, action) {
                 favoritedecks: action.payload.favoritedecks,
             };
         case REMOVE_TOKEN:
-            const newState = { ...state };
-            console.log(newState);
+            const newState = {};
             delete newState.token;
             return newState;
 
@@ -143,6 +141,11 @@ export default function reducer(state = {}, action) {
                 favoritedecks: favorites,
             };
         case DELETE_FAVORITE_DECK:
+            return {
+                ...state,
+                favoritedecks: action.payload.favoritedecks,
+            };
+        case DELETE_DECK:
             return {
                 ...state,
                 favoritedecks: action.payload.favoritedecks,
