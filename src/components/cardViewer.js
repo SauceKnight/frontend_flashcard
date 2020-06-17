@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import "../index.css";
-
+import ReactCardFlip from 'react-card-flip'
 import { makeStyles, useTheme, fade } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -18,73 +18,63 @@ import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
 
 const useStyles = makeStyles((theme) => ({
-	root: {
-		minWidth: 275,
-		// marginTop: "100px",
-		marginLeft: "80px",
-		width: "700px",
-		height: "400px",
-		borderRadius: "20px",
-		cursor: "pointer",
-		backgroundColor: "#FFFFFF",
-		background: theme.gradientBackground,
-
-	},
-
-	pos: {
-		marginBottom: 12,
-	},
-	header: {
-		marginTop: "20px",
-		marginBottom: "20px",
-		fontSize: "20px",
-		color: "black",
-	},
 	bodyText: {
 		fontSize: "30px",
 		// color: "orange",
+		textAlign: "center",
+		textJustify: "center"
 	},
 	editCardButton: {
 		borderRadius: "20px",
 		color: "#FFFFFF",
 		backgroundColor: "#5680E9",
 		width: "120px",
-		marginTop: "60px",
+		// marginTop: "60px",
 		// marginLeft: "30px",
-		marginLeft: 180,
+		// marginLeft: 180,
 		"&:hover": {
 			backgroundColor: "#5680E9",
 		}
 	},
 	buttons: {
-		// display: "flex",
-		// flexDirection: "row",
-		// justifyContent: "space-evenly"
+		display: "flex",
+		flexDirection: "row",
+		justifyContent: "space-evenly"
+	},
+	card: {
+		// minWidth: 400,
+		// minHeight: 400,
+		// maxHeight: 450,
+		// maxWidth: 450,
+		// paddingLeft: 200
+		// marginLeft: 240,
+		// marginRight: 240,
+		height: 200
+	},
+	cardDiv: {
+		marginTop: "20px"
+	},
+	buttonDiv: {
+		marginTop: "20px",
+		display: "flex",
+		flexDirection: "row",
+		justifyContent: "space-evenly"
 	},
 	quizView: {
 		display: "flex",
-		flexDirection: "row",
-		// alignItems: "space-evenly",
-		justifyContent: "space-evenly",
-		marginLeft: 160,
-		marginTop: 200
-	},
-	next: {
-		display: "flex",
-		flexDirection: "row",
-		// alignItems: "space-evenly",
-		justifyContent: "flex-start",
-		alignItems: "flex-start"
+		flexDirection: "column",
+		justifyContent: "center",
+		marginRight: "30%",
+		marginLeft: "30%",
+
 
 	},
-	colorStyle: {
-		// backgroundColor: "linear-gradient(to top, #ffb74d, transparent)",
+	test: {
+		marginLeft: 240,
+
+
 	},
 }));
-
-function toggler(event) {
-	event.currentTarget.classList.toggle("is-flipped");
-}
 
 export default function CardViewer(props) {
 	const classes = useStyles();
@@ -92,6 +82,8 @@ export default function CardViewer(props) {
 	const { id } = props.match.params;
 	const dispatch = useDispatch();
 	let [currentCard, setCurrentCard] = useState(0);
+	let [isFlipped, setIsFlipped] = useState(false);
+
 	useEffect(() => {
 		dispatch(getAllCards(id));
 	}, [id]);
@@ -106,6 +98,10 @@ export default function CardViewer(props) {
 			return setCurrentCard(0);
 		}
 		return setCurrentCard(currentCard + 1);
+	}
+
+	function handleClick(e) {
+		return setIsFlipped(!isFlipped)
 	}
 
 	function updatePreviousCurrentCard(e) {
@@ -127,7 +123,7 @@ export default function CardViewer(props) {
 	return (
 		<>
 			<div className={classes.quizView}>
-				<div className={classes.buttons}>
+				<div className={classes.buttonDiv} >
 					<Button
 						size="small"
 						className={classes.editCardButton}
@@ -136,70 +132,41 @@ export default function CardViewer(props) {
 						<SkipPreviousIcon />
 						Previous
 					</Button>
-				</div>
-				<div  >
-					<div className="card" onClick={(event) => toggler(event)}>
-						<div >
-							<div className="card__face card__face--front">
-								<Card className={classes.root}>
-									<CardContent>
-										<Typography
-											className={classes.header}
-											variant="h5"
-											component="h2"
-										>
-											Question
-									</Typography>
-										<Typography
-											variant="body2"
-											className={classes.bodyText}
-											component="p"
-										>
-											{newCards[currentCard].question}
-											<br />
-										</Typography>
-									</CardContent>
-								</Card>
-							</div>
-							<div className="card__face card__face--back">
-								<Card className={classes.root}>
-									<CardContent>
-										<Typography
-											className={classes.header}
-											variant="h5"
-											component="h2"
-										>
-											Answer
-									</Typography>
-										<Typography
-											variant="body2"
-											className={classes.bodyText}
-											component="p"
-										>
-											{newCards[currentCard].answer}
-											<br />
-										</Typography>
-									</CardContent>
-									<div className="cardViewer_buttons"></div>
-								</Card>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div className={classes.next}>
-					<div className={classes.buttons}>
-						<Button
-							size="small"
-							className={classes.editCardButton}
-							onClick={updateNextCurrentCard}
-						>
+					<Button
+						size="small"
+						className={classes.editCardButton}
+						onClick={updateNextCurrentCard}
+					>
 
-							Next
+						Next
 						<SkipNextIcon />
-						</Button>
-					</div>
+					</Button>
+				</div>
+				<div className={classes.cardDiv}>
+					<ReactCardFlip isFlipped={isFlipped} flipDirection="vertical">
+						<Card onClick={handleClick} >
+							<Typography
+								variant="body2"
+								className={classes.bodyText}
+								component="p"
+							>
+								{newCards[currentCard].question}
+							</Typography>
+
+						</Card>
+
+						<Card onClick={handleClick} >
+							<Typography
+								variant="body2"
+								className={classes.bodyText}
+								component="p"
+							>
+								{newCards[currentCard].answer}
+							</Typography>
+						</Card>
+					</ReactCardFlip>
 				</div>
 			</div>
-		</>
+		</ >
 	);
 }
