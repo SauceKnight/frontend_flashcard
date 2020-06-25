@@ -1,3 +1,3 @@
-export const imageUrl =
-    process.env.REACT_APP_IMAGE_URL || "http://localhost:5000";
-export const baseUrl = process.env.REACT_APP_BASEURL || `${imageUrl}/api`;
+module.exports = {
+    API: process.env.NODE_ENV === "development" ? 'http://localhost:5000' : 'https://flashnerdbackend.herokuapp.com'
+}

@@ -1,3 +1,4 @@
+import { API } from '../config';
 import { DELETE_DECK } from '../deck/deckActions'
 export const FETCH_CURRENT_CARD = "FECTH_CURRENT_CARD";
 export const FETCH_ALL_CARDS = "FECTH_ALL_CARDS";
@@ -41,7 +42,7 @@ export const fetchCurrentCard = (currentCard) => ({
 
 //FETCH ALL CARDS
 export const getAllCards = (id) => async (dispatch) => {
-	const response = await fetch(`http://localhost:5000/cards/${id}`);
+	const response = await fetch(`${API}/cards/${id}`);
 	if (response.ok) {
 		const res = await response.json();
 
@@ -50,7 +51,7 @@ export const getAllCards = (id) => async (dispatch) => {
 };
 
 export const getAllCardsForQuiz = (id) => async (dispatch) => {
-	const response = await fetch(`http://localhost:5000/cards/${id}`);
+	const response = await fetch(`${API}/cards/${id}`);
 	if (response.ok) {
 		const res = await response.json();
 		const resData = Object.values(res.data);
@@ -68,7 +69,7 @@ export const getAllCardsForQuiz = (id) => async (dispatch) => {
 export const createNewCards = (deck_id, question, answer) => async (
 	dispatch
 ) => {
-	const response = await fetch(`http://localhost:5000/cards/${deck_id}`, {
+	const response = await fetch(`${API}/cards/${deck_id}`, {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify({ deck_id, question, answer }),
@@ -83,7 +84,7 @@ export const createNewCards = (deck_id, question, answer) => async (
 export const DeleteCurrentCard = (cardid) => async (
 	dispatch
 ) => {
-	const response = await fetch(`http://localhost:5000/cards/${cardid}/delete`, {
+	const response = await fetch(`${API}/cards/${cardid}/delete`, {
 		method: "DELETE",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify({ cardid }),
@@ -97,7 +98,7 @@ export const DeleteCurrentCard = (cardid) => async (
 export const EditCurrentCard = (cardid, question, answer) => async (
 	dispatch
 ) => {
-	const response = await fetch(`http://localhost:5000/cards/${cardid}`, {
+	const response = await fetch(`${API}/cards/${cardid}`, {
 		method: "PUT",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify({ cardid, question, answer }),
@@ -112,7 +113,7 @@ export const EditCurrentCard = (cardid, question, answer) => async (
 ////FETCH SINGLER CARD
 export const getOneCard = (deckId, cardId) => async (dispatch) => {
 	const response = await fetch(
-		`http://localhost:5000/cards/${deckId}/${cardId}`
+		`${API}/cards/${deckId}/${cardId}`
 	);
 	if (response.ok) {
 		const res = await response.json();

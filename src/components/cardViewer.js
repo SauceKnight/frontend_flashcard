@@ -22,7 +22,11 @@ const useStyles = makeStyles((theme) => ({
 		fontSize: "30px",
 		// color: "orange",
 		textAlign: "center",
-		textJustify: "center"
+		textJustify: "center",
+		height: "300px",
+		display: "flex",
+		alignItems: "center",
+		justifyContent: "center"
 	},
 	editCardButton: {
 		borderRadius: "20px",
