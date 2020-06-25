@@ -52,9 +52,9 @@ const useStyles = makeStyles((theme) => ({
 export default function LoginPanel() {
 	const classes = useStyles();
 
-	const [email, setEmail] = useState("test5@gmail.com");
-	const [password, setPassword] = useState("password");
-	const [username, setUsername] = useState("test5");
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [username, setUsername] = useState("");
 	const id = useSelector((state) => state.User.id);
 	const dispatch = useDispatch();
 
@@ -62,6 +62,15 @@ export default function LoginPanel() {
 		e.preventDefault();
 		dispatch(login(email, username, password));
 	};
+
+	const handleSubmitDemo = async (e) => {
+		e.preventDefault();
+		// setEmail("test5@gmail.com");
+		// setUsername("test5");
+		// setPassword("password");
+		dispatch(login("test5@gmail.com", "test5", "password"));
+	};
+
 	const updateEmail = (e) => {
 		setEmail(e.target.value);
 	};
@@ -130,6 +139,16 @@ export default function LoginPanel() {
 							onClick={handleSubmit}
 						>
 							Login
+            </Button>
+						<Button
+							type="submit"
+							fullWidth
+							variant="contained"
+							color="primary"
+							className={classes.submit}
+							onClick={handleSubmitDemo}
+						>
+							Demo
             </Button>
 						<Grid container>
 							<Grid item xs>

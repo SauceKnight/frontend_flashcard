@@ -60,10 +60,10 @@ body {
 .card__face--back {
 	transform: rotateX(180deg);
 }
-.MuiCardContent-root {
+/* .MuiCardContent-root {
 	height: 65%;
 
-}
+} */
 /* .MuiPaper-elevation1 {
 	background-color: #6d3f07;
 } */

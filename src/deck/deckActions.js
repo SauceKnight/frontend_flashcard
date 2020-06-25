@@ -1,3 +1,4 @@
+import { API } from '../config';
 export const FETCH_SEARCH_DECKS = "FECTH_SEARCH_DECKS";
 export const SEARCH_DECKS_BY_TITLE = "SEARCH_DECKS_BY_TITLE";
 export const CREATE_NEW_DECK = "CREATE_NEW_DECK";
@@ -62,7 +63,7 @@ export const editDeck = (payload) => ({
 });
 
 export const fetchDecks = (userid) => async (dispatch) => {
-    const response = await fetch(`http://localhost:5000/user/${userid}/decks`);
+    const response = await fetch(`${API}/${userid}/decks`);
     if (response.ok) {
         const res = await response.json();
         dispatch(fetchSearchDecks(res));
@@ -71,7 +72,7 @@ export const fetchDecks = (userid) => async (dispatch) => {
 
 export const getOneDeck = (userid, deckid) => async (dispatch) => {
     const response = await fetch(
-        `http://localhost:5000/user/${userid}/deck/${deckid}`
+        `${API}/user/${userid}/deck/${deckid}`
     );
     if (response.ok) {
         const res = await response.json();
@@ -80,7 +81,7 @@ export const getOneDeck = (userid, deckid) => async (dispatch) => {
 };
 
 export const getDeckByTitle = (searchTerm) => async (dispatch) => {
-    const response = await fetch(`http://localhost:5000/search/decks`, {
+    const response = await fetch(`${API}/search/decks`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ searchTerm }),
@@ -92,7 +93,7 @@ export const getDeckByTitle = (searchTerm) => async (dispatch) => {
 };
 
 export const newDeck = (user_id, title, description) => async (dispatch) => {
-    const response = await fetch(`http://localhost:5000/user/${user_id}/new_deck`, {
+    const response = await fetch(`${API}/user/${user_id}/new_deck`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ user_id, title, description }),
@@ -104,7 +105,7 @@ export const newDeck = (user_id, title, description) => async (dispatch) => {
 };
 
 export const addFavorite = (user_id, deck_id) => async (dispatch) => {
-    const response = await fetch(`http://localhost:5000/${user_id}/${deck_id}/favorites`, {
+    const response = await fetch(`${API}/${user_id}/${deck_id}/favorites`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ user_id, deck_id }),
@@ -116,7 +117,7 @@ export const addFavorite = (user_id, deck_id) => async (dispatch) => {
 };
 
 export const deleteFavorite = (user_id, deck_id) => async (dispatch) => {
-    const response = await fetch(`http://localhost:5000/${user_id}/${deck_id}/favoritedelete`, {
+    const response = await fetch(`${API}/${user_id}/${deck_id}/favoritedelete`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ user_id, deck_id }),
@@ -128,7 +129,7 @@ export const deleteFavorite = (user_id, deck_id) => async (dispatch) => {
 };
 
 export const deleteSpecificDeck = (user_id, deck_id) => async (dispatch) => {
-    const response = await fetch(`http://localhost:5000/user/${user_id}/${deck_id}/delete`, {
+    const response = await fetch(`${API}/user/${user_id}/${deck_id}/delete`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ user_id, deck_id }),
@@ -141,7 +142,7 @@ export const deleteSpecificDeck = (user_id, deck_id) => async (dispatch) => {
 };
 
 export const loggedInDecks = (user_id) => async (dispatch) => {
-    const response = await fetch(`http://localhost:5000/user/${user_id}/decks`);
+    const response = await fetch(`${API}/user/${user_id}/decks`);
     if (response.ok) {
         const res = await response.json();
         dispatch(fetchUserDecks(res));
@@ -151,7 +152,7 @@ export const loggedInDecks = (user_id) => async (dispatch) => {
 export const EditCurrentDeck = (user_id, deckid, title, description) => async (
     dispatch
 ) => {
-    const response = await fetch(`http://localhost:5000/user/${user_id}/deck/${deckid}`, {
+    const response = await fetch(`${API}/user/${user_id}/deck/${deckid}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ title, description }),

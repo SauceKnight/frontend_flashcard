@@ -1,4 +1,4 @@
-import { baseUrl } from "../config";
+import { API } from '../config';
 import jwt_decode from "jwt-decode";
 import { DELETE_DECK, DELETE_FAVORITE_DECK, CREATE_NEW_DECK, FETCH_USER_DECKS, FAVORITE_DECK } from '../deck/deckActions'
 
@@ -25,7 +25,7 @@ export const loadToken = () => async (dispatch) => {
 export const profileShowUp = (id) => async (dispatch) => {
     const token = window.localStorage.getItem(TOKEN_KEY);
     if (token) {
-        const response = await fetch(`http://localhost:5000/users/${id}`, {
+        const response = await fetch(`${API}/users/${id}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -46,7 +46,7 @@ export const profileShowUp = (id) => async (dispatch) => {
 };
 
 export const login = (email, username, password) => async (dispatch) => {
-    const response = await fetch(`http://localhost:5000/login`, {
+    const response = await fetch(`${API}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, username, password }),
@@ -69,7 +69,7 @@ export const fetchFavoriteDecks = favoritedecks => {
 }
 
 export const fetchFavoriteUserDecks = (userid) => async (dispatch) => {
-    const response = await fetch(`http://localhost:5000/${userid}/decks/favorites`);
+    const response = await fetch(`${API}/${userid}/decks/favorites`);
     if (response.ok) {
         const res = await response.json();
         dispatch(fetchFavoriteDecks(res));
@@ -82,7 +82,7 @@ export const logout = () => async (dispatch, getState) => {
 };
 
 export const signup = (email, username, password) => async (dispatch) => {
-    const response = await fetch(`http://localhost:5000/signup`, {
+    const response = await fetch(`${API}/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
