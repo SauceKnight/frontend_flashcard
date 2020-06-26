@@ -68,7 +68,7 @@ export default function LoginPanel() {
 		// setEmail("test5@gmail.com");
 		// setUsername("test5");
 		// setPassword("password");
-		dispatch(login("test5@gmail.com", "test5", "password"));
+		dispatch(login("Demo@gmail.com", "Demo", "password"));
 	};
 
 	const updateEmail = (e) => {
