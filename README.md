@@ -2,11 +2,11 @@
 
 This is an application for creating virtual flash cards to aid in studying. Users may log in, create decks, create cards for those decks, view the cards one-by-one, edit their cards, and mark cards or whole decks as complete.
 
-(Screenshots of completed app go here)
+[Try out our app on Heroku here!](https://flashnerd.herokuapp.com/)
+
+[Screenshots of our working app can be found here](https://github.com/SauceKnight/frontend_flashcard/tree/master/public/images/screenshots)
 
 [Here is our backend repository for FlashNerd](https://github.com/SauceKnight/backend_flashcard)
-
-(App has yet to be deployed, hosted link goes here)
 
 [Our Feature List can be found here](https://github.com/SauceKnight/frontend_flashcard/blob/master/documentation/feature_list.md)
 
